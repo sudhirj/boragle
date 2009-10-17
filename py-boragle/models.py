@@ -42,6 +42,3 @@ class Question(CommentableModel, HasSlugs):
     
 class Answer(CommentableModel):
     question = db.ReferenceProperty(Question,collection_name='answers')
-
-
- 
