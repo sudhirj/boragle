@@ -1,13 +1,6 @@
 @import reset.sass
+@import constants.sass
 
-=rounded-corners(!radius)
-  -webkit-border-radius = !radius
-
-!total_width = 60em
-!data_width = 44em
-!data_margin = 1em
-!sidebar_width = 11em
-  
 body
   font-size: 16px
   width: 85%
@@ -33,7 +26,7 @@ a
       margin: 0.2em
   ul.nav
     position: absolute
-    bottom: 0
+    bottom: -0.2em
     right: 0.7em
     display: block
     li
@@ -42,14 +35,12 @@ a
         font-size: 0.85em
         padding: 0.3em 0.5em
         margin-left: 0.2em
-        background: #ddd
+        background= !button_bg
         cursor: pointer
         +rounded-corners(0.35em)
-        &:hover
-          padding: 0.6em 0.7em
 
 .block
-  background: #efefef
+  background= !background
   padding: 1em
   +rounded-corners(1em)
 
