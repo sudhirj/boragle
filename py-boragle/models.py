@@ -20,6 +20,7 @@ class HasSlugs:
 
 class HasComments:
     pass
+    db.UserProperty()
 
 class HasVotes:
     pass
@@ -44,5 +45,8 @@ class Answer(CommentableModel):
     question = db.ReferenceProperty(Question,collection_name='answers')
 
 class Borg(ExtendedModel):
+    user_id = db.StringProperty(required = True)
     reputation = db.IntegerProperty(default = 1)
+    
+    
     
