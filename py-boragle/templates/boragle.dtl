@@ -1,0 +1,5 @@
+{% extends "general.dtl" %}
+{% block content %}
+hello
+	
+{% endblock %}

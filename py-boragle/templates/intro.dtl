@@ -11,6 +11,8 @@
 	<p>
 		Boragle is more along the lines of StackOverflow - a question and answer model, except that you can create a boragle on any topic you want.
 	</p>
+	<h3>Can I use it for my organization?</h3>
+	<p>Sure... Boragle runs on the App Engine, so you could easily deploy your own instance, especially if you're using Google Apps.</p>
 	<p>
 		If this is your first time, take a look at the most recent or the most popular boragles in the lists below.
 	</p>

@@ -4,7 +4,7 @@
 	</h1>
 	<ul class="nav">
 		<li>
-			<a>home</a>
+			<a href="/">home</a>
 		</li>
 		<li>
 			<a>make a new boragle</a>

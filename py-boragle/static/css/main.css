@@ -47,6 +47,11 @@ body {
 
 a:hover {
   text-decoration: underline; }
+a:visited {
+  text-decoration: none; }
+
+input[type=submit] {
+  background-color: #ccc; }
 
 .header {
   position: relative; }
@@ -72,12 +77,15 @@ a:hover {
         margin-left: 0.2em;
         background: #dddddd;
         cursor: pointer;
-        -webkit-border-radius: 0.35em; }
+        -webkit-border-radius: 0.35em;
+        -moz-border-radius: 0.35em; }
 
 .block {
   background: #efefef;
   padding: 1em;
-  -webkit-border-radius: 1em; }
+  margin-top: 1em;
+  -webkit-border-radius: 1em;
+  -moz-border-radius: 1em; }
 
 .intro {
   margin: 1em 0.5em 1em 0;
@@ -109,3 +117,29 @@ a:hover {
   .footer hr {
     width: 70%;
     margin: 0.5em auto; }
+
+.ask-question .field {
+  margin: 1em 0; }
+.ask-question label {
+  width: 8em;
+  display: inline-block;
+  float: left;
+  margin-top: 0.8em; }
+.ask-question input, .ask-question textarea {
+  width: 35em;
+  max-width: 35em;
+  font-size: 1.2em;
+  padding: 0.5em;
+  border: 0.1em solid #ccc;
+  -webkit-border-radius: 0.5em;
+  -moz-border-radius: 0.5em; }
+.ask-question textarea {
+  font-size: 0.85em;
+  height: 8em;
+  max-height: 8em;
+  -webkit-border-radius: 1em;
+  -moz-border-radius: 1em; }
+.ask-question input[type=submit] {
+  width: auto;
+  padding: 1em 1.68em;
+  cursor: pointer; }

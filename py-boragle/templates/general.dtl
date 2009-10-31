@@ -1,0 +1,9 @@
+{% extends "base.dtl" %}
+
+{% block body %}
+{% include "header.dtl" %}
+{% block content %}
+	
+{% endblock %}
+{% include "footer.dtl" %}
+{% endblock %}

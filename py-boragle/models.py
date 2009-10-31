@@ -20,7 +20,6 @@ class HasSlugs:
 
 class HasComments:
     pass
-    db.UserProperty()
 
 class HasVotes:
     pass

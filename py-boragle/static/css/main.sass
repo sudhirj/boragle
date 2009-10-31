@@ -12,6 +12,13 @@ body
 a
   &:hover
     text-decoration: underline
+  &:visited
+    text-decoration: none
+
+input[type=submit]
+  background-color: #ccc
+  
+  
 
 .header
   position: relative
@@ -42,6 +49,7 @@ a
 .block
   background= !background
   padding: 1em
+  margin-top: 1em 
   +rounded-corners(1em)
 
 .intro  
@@ -74,3 +82,30 @@ a
   hr 
     width: 70%
     margin: 0.5em auto
+    
+.ask-question
+  .field 
+    margin: 1em 0
+  label
+    width= !form_label_width
+    display: inline-block
+    float: left
+    margin-top: 0.8em
+    
+  input, textarea
+    width: 35em
+    max-width: 35em
+    font-size: 1.2em
+    padding: 0.5em
+    border: 0.1em solid #ccc
+    +rounded-corners(0.5em)
+    
+  textarea
+    font-size: 0.85em
+    height: 8em
+    max-height: 8em
+    +rounded-corners(1em)
+  input[type=submit]
+    width: auto
+    padding: 1em #{1em*!ratio}
+    cursor: pointer

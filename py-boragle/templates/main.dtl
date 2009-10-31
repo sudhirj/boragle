@@ -1,9 +1,7 @@
-{% extends "base.dtl" %}
+{% extends "general.dtl" %}
 
 {% block content %}
-{% include "header.dtl" %}
 {% include "intro.dtl" %}
 {% include "boragle_list.dtl" %}
 {% include "boragle_list.dtl" %}
-{% include "footer.dtl" %}	
 {% endblock %}
