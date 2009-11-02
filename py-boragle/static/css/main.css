@@ -43,7 +43,7 @@ body {
   font-family: Georgia, sans;
   margin: 1em auto;
   max-width: 60em;
-  line-height: 1em; }
+  line-height: 1.2em; }
 
 a:hover {
   text-decoration: underline; }
@@ -92,12 +92,13 @@ input[type=submit] {
   float: left;
   width: 44em; }
   .intro h3 {
-    font-size: 1.1em;
+    font-size: 1em;
     font-weight: bold;
     margin: 0.5em 0; }
   .intro p {
     line-height: 1.4em;
-    margin-bottom: 1em; }
+    margin-bottom: 1em;
+    font-size: 0.95em; }
 
 .sidebar {
   margin: 1em 0 0 0.5em;
@@ -118,28 +119,33 @@ input[type=submit] {
     width: 70%;
     margin: 0.5em auto; }
 
-.ask-question .field {
-  margin: 1em 0; }
-.ask-question label {
-  width: 8em;
-  display: inline-block;
-  float: left;
-  margin-top: 0.8em; }
-.ask-question input, .ask-question textarea {
-  width: 35em;
-  max-width: 35em;
-  font-size: 1.2em;
-  padding: 0.5em;
-  border: 0.1em solid #ccc;
-  -webkit-border-radius: 0.5em;
-  -moz-border-radius: 0.5em; }
-.ask-question textarea {
-  font-size: 0.85em;
-  height: 8em;
-  max-height: 8em;
-  -webkit-border-radius: 1em;
-  -moz-border-radius: 1em; }
-.ask-question input[type=submit] {
-  width: auto;
-  padding: 1em 1.68em;
-  cursor: pointer; }
+.form.block {
+  padding: 1em 2em; }
+  .form.block .field {
+    margin: 1em 0; }
+  .form.block label {
+    width: 7em;
+    display: inline-block;
+    float: left;
+    margin-right: 1em;
+    margin-top: 0.8em; }
+  .form.block input, .form.block textarea {
+    width: 30em;
+    max-width: 35em;
+    font-size: 1.2em;
+    padding: 0.5em;
+    border: 0.1em solid #ccc;
+    -webkit-border-radius: 0.5em;
+    -moz-border-radius: 0.5em;
+    font-family: Georgia, sans-serif; }
+  .form.block textarea {
+    font-size: 1em;
+    height: 8em;
+    max-height: 8em;
+    line-height: 1.4em;
+    -webkit-border-radius: 1em;
+    -moz-border-radius: 1em; }
+  .form.block input[type=submit] {
+    width: auto;
+    padding: 0.5em 0.84em;
+    cursor: pointer; }

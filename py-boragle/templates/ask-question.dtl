@@ -1,13 +1,13 @@
 {% extends "general.dtl" %}
 {% block content %}
-<div class="block ask-question">
+<div class="block form">
 	<form action="" method="post" accept-charset="utf-8">
 		<div class="field">
 			<label for="question">Question:</label><input type="text" name="question" value=""/>
 		</div>
 
 		<div class="field">
-			<label for="desc">Description:</label><textarea name="desc"></textarea>
+			<label for="desc">More information:</label><textarea name="desc"></textarea>
 		</div>
 		<div class="field">
 			<label for="ask"></label><input type="submit" value="Ask" name="ask"/>
