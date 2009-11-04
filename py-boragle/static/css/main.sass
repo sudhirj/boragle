@@ -7,6 +7,7 @@ body
   font-family: Georgia, sans
   margin: 1em auto
   max-width= !total_width
+  min-width= !data_width
   line-height: 1.2em
   
 a
@@ -20,6 +21,7 @@ input[type=submit]
   
 .header
   position: relative
+  min-width= !data_width
   h1
     font-size: 2em
     display: inline
@@ -47,15 +49,14 @@ input[type=submit]
 .block
   background= !background
   padding: 1em
-  margin-top: 1em 
+  margin-bottom: 1em 
+  margin-right: 1em
   +rounded-corners(1em)
 
 .intro  
-  margin: 1em #{!data_margin/2} 1em 0
   float: left
   width= !data_width
   h3
-    font-size: 1em
     font-weight: bold
     margin: 0.5em 0
   p
@@ -64,8 +65,7 @@ input[type=submit]
     font-size: 0.95em
 
 .sidebar
-  margin: 1em 0 0 #{!data_margin/2}
-  float: right
+  float: left
   width= !sidebar_width
   line-height: 1.2em
   text-align: center
@@ -75,9 +75,11 @@ input[type=submit]
     
 .footer
   clear: both
-  font-size: 0.9em
+  min-width= !data_width
   text-align: center
-  padding: 0.7em
+
+  p
+    font-size: 0.8em
   hr 
     width: 70%
     margin: 0.5em auto

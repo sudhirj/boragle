@@ -22,6 +22,8 @@ class NewBoragleHandler(ExtendedHandler):
 class AskQuestionHandler(ExtendedHandler):
     def get(self, boragle_slug):
         self.render_template('ask-question')
+        
+        
 ROUTES =    [
             (r'/([\w-]+)/ask', AskQuestionHandler),
             (r'/new', NewBoragleHandler),
