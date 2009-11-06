@@ -3,9 +3,9 @@
 		popular boragles
 	</h5>
 	<ul>
-		<li>one
+		<li><a href="/one">one</a>
 		</li>
-		<li>two
+		<li><a href="/two">two</a>
 		</li>
 	</ul>
 </div>

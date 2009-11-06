@@ -7,7 +7,7 @@
 			<a href="/">home</a>
 		</li>
 		<li>
-			<a>make a new boragle</a>
+			<a href="/new">make a new boragle</a>
 		</li>
 		<li>
 			<a>sign in</a>

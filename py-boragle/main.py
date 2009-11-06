@@ -27,7 +27,7 @@ class AskQuestionHandler(ExtendedHandler):
 ROUTES =    [
             (r'/([\w-]+)/ask', AskQuestionHandler),
             (r'/new', NewBoragleHandler),
-            (r'/([\w-]+)', BoragleHandler),
+            (r'/([\w-]+)/*', BoragleHandler),
             (r'.*', MainHandler)
             ]
 

@@ -1,5 +1,19 @@
 {% extends "general.dtl" %}
 {% block content %}
-hello
-	
+<div class="block question-list">
+	<div class="questions">
+		<a class="question">
+			<div class="votes"><span class="number">46</span><span class="text">answers</span></div>
+			<div class="question-text">How much wood would a woodchuck chuck?</div>
+			<div class="answer">What I want to find out is the exact amount of wood that a woodchuck would chuck if the fellow could actually chuck wood.</div>
+		</a>
+		<a class="question last">
+			<div class="votes"><span class="number">4</span><span class="text">answers</span></div>
+			<div class="question-text">Why on earth did Betty buy all that bitter butter that was really bitter?</div>
+			<div class="answer">Zimbly.</div>
+		</a>
+	</div>
+
+</div>
+
 {% endblock %}
