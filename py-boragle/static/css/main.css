@@ -48,7 +48,8 @@ body {
   color: #000; }
 
 a {
-  text-decoration: none; }
+  text-decoration: none;
+  color: #000; }
   a:hover {
     text-decoration: none; }
   a:visited {
@@ -57,6 +58,9 @@ a {
 
 input[type=submit] {
   background-color: #ccc; }
+
+.main-col {
+  width: 43em; }
 
 .header {
   position: relative;
@@ -160,40 +164,42 @@ input[type=submit] {
 
 .question-list {
   width: 43em; }
-  .question-list .questions .question {
-    overflow: hidden;
-    position: relative;
-    padding: 1em;
-    margin-bottom: 1em;
+
+.question {
+  overflow: hidden;
+  position: relative;
+  padding: 1.5em;
+  margin-bottom: 1em;
+  -webkit-border-radius: 0.5em;
+  -moz-border-radius: 0.5em;
+  background: #ddd;
+  cursor: pointer;
+  display: block; }
+  .question.last {
+    margin-bottom: 0; }
+  .question:hover {
+    background: #cfcfcf; }
+  .question .main .text {
+    font-size: 1em;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.3em; }
+  .question .main .details {
+    font-size: 0.9em; }
+  .question .votes {
+    display: block;
+    margin: 0 0 1.5em 1.5em;
+    float: right;
+    padding: 0.6em;
+    background: #efefef;
     -webkit-border-radius: 0.5em;
-    -moz-border-radius: 0.5em;
-    background: #ddd;
-    cursor: pointer;
-    display: block; }
-    .question-list .questions .question.last {
-      margin-bottom: 0; }
-    .question-list .questions .question:hover {
-      background: #cfcfcf; }
-    .question-list .questions .question .question-text {
-      font-size: 0.94em;
-      font-weight: bold; }
-    .question-list .questions .question .answer {
-      margin-top: 0.3em;
-      font-size: 0.9em; }
-    .question-list .questions .question .votes {
+    -moz-border-radius: 0.5em; }
+    .question .votes .number, .question .votes .text {
       display: block;
-      float: left;
-      margin-right: 1em;
-      padding: 0.6em;
-      background: #efefef;
-      -webkit-border-radius: 0.5em;
-      -moz-border-radius: 0.5em; }
-      .question-list .questions .question .votes .number, .question-list .questions .question .votes .text {
-        display: block;
-        text-align: center;
-        font-weight: normal; }
-      .question-list .questions .question .votes .number {
-        font-weight: bold; }
-      .question-list .questions .question .votes .text {
-        font-size: 0.8em;
-        margin-top: 0.2em; }
+      text-align: center;
+      font-weight: normal; }
+    .question .votes .number {
+      font-weight: bold; }
+    .question .votes .text {
+      font-size: 0.8em;
+      margin-top: 0.2em; }

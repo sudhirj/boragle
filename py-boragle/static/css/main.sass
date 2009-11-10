@@ -13,6 +13,7 @@ body
   
 a
   text-decoration: none
+  color: #000
   &:hover
     text-decoration: none
   &:visited
@@ -21,6 +22,9 @@ a
 
 input[type=submit]
   background-color: #ccc
+  
+.main-col
+  width= !data_width
   
 .header
   position: relative
@@ -126,40 +130,42 @@ input[type=submit]
 
 .question-list
   width= !data_width
-  .questions
-    .question
-      overflow: hidden
-      position: relative    
-      padding: 1em
-      margin-bottom: 1em 
-      +rounded-corners(0.5em)
-      background: #ddd
-      cursor: pointer
+  
+.question
+  overflow: hidden
+  position: relative    
+  padding: 1.5em
+  margin-bottom: 1em 
+  +rounded-corners(0.5em)
+  background: #ddd
+  cursor: pointer
+  display: block
+  &.last
+    margin-bottom: 0
+  &:hover
+    background: #cfcfcf
+  .main
+    .text
+      font-size: 1em
+      font-weight: bold
       display: block
-      &.last
-        margin-bottom: 0
-      &:hover
-        background: #cfcfcf
-      .question-text
-        font-size: 0.94em
-        font-weight: bold
-      .answer
-        margin-top: 0.3em
-        font-size: 0.9em
-          
-      .votes
-        display: block
-        float: left
-        margin-right: 1em
-        padding: 0.6em
-        background: #efefef
-        +rounded-corners(0.5em)
-        .number, .text
-          display: block
-          text-align: center
-          font-weight: normal
-        .number
-          font-weight: bold
-        .text
-          font-size: 0.8em
-          margin-top: 0.2em
+      margin-bottom: 0.3em
+    .details
+      font-size: 0.9em
+      
+  .votes
+    display: block
+    margin: 0 0 1.5em 1.5em 
+    float: right
+    padding: 0.6em
+    background: #efefef
+    +rounded-corners(0.5em)
+    .number, .text
+      display: block
+      text-align: center
+      font-weight: normal
+    .number
+      font-weight: bold
+    .text
+      font-size: 0.8em
+      margin-top: 0.2em

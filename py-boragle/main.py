@@ -11,6 +11,10 @@ class MainHandler(ExtendedHandler):
     def get(self):
         self.render_template('main')
 
+class QuestionHandler(ExtendedHandler):
+    def get(self, boragle_slug, question_slug):
+        self.render_template('qna')
+
 class BoragleHandler(ExtendedHandler):
     def get(self, boragle_slug):
         self.render_template('boragle')
@@ -27,6 +31,7 @@ class AskQuestionHandler(ExtendedHandler):
 ROUTES =    [
             (r'/([\w-]+)/ask', AskQuestionHandler),
             (r'/new', NewBoragleHandler),
+            (r'/([\w-]+)/([\w-]+)/*', QuestionHandler),
             (r'/([\w-]+)/*', BoragleHandler),
             (r'.*', MainHandler)
             ]
