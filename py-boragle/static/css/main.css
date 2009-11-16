@@ -168,7 +168,7 @@ input[type=submit] {
 .question {
   overflow: hidden;
   position: relative;
-  padding: 1.5em;
+  padding: 1em;
   margin-bottom: 1em;
   -webkit-border-radius: 0.5em;
   -moz-border-radius: 0.5em;
@@ -188,7 +188,7 @@ input[type=submit] {
     font-size: 0.9em; }
   .question .votes {
     display: block;
-    margin: 0 0 1.5em 1.5em;
+    margin: 0 0 1.2em 1.2em;
     float: right;
     padding: 0.6em;
     background: #efefef;
@@ -203,3 +203,10 @@ input[type=submit] {
     .question .votes .text {
       font-size: 0.8em;
       margin-top: 0.2em; }
+
+.answer {
+  padding: 1em;
+  -webkit-border-radius: 0.5em;
+  -moz-border-radius: 0.5em;
+  background: #cfcfcf;
+  margin-bottom: 1em; }
