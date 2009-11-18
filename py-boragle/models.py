@@ -1,5 +1,14 @@
 from google.appengine.ext import db
+import re
 
+def slugify(text):
+    removelist = ["a", "an", "as", "at", "before", "but", "by", "for","from","is", "in", "into", "like", "of", "off", "on", "onto","per","since", "than", "the", "this", "that", "to", "up", "via","with"];
+    for word in removelist:
+        slug = re.sub(r'\b'+word+r'\b','',text)
+    slug = re.sub('[^\w\s-]', '', slug).strip().lower()
+    slug = re.sub('\s+', '-', slug)
+    return slug
+    
 class ExtendedModel(db.Model):
     created_at = db.DateTimeProperty(auto_now_add = True)
     updated_at = db.DateTimeProperty(auto_now = True)
@@ -17,6 +26,10 @@ class HasSlugs:
     @classmethod
     def find_by_slug(cls, slug):
         return cls._find_by('slugs', slug)
+    
+    @property 
+    def slug(self):
+        return self.slugs[0]
 
 class HasComments:
     pass
@@ -37,8 +50,14 @@ class Comment(ExtendedModel):
     owner = db.ReferenceProperty(CommentableModel,collection_name='comments')
     
 class Question(CommentableModel, HasSlugs):
-    boragle = db.ReferenceProperty(Boragle,collection_name='questions')
-    slugs = db.StringListProperty(validator = HasSlugs.validate_slugs)
+    boragle = db.ReferenceProperty(Boragle,collection_name='questions', required = True)
+    text = db.StringProperty(required = True)
+    details = db.TextProperty()
+    slugs = db.StringListProperty()
+    
+    def put(self):
+        self.slugs.append(slugify(self.text))
+        super(Question, self).put()
     
 class Answer(CommentableModel):
     question = db.ReferenceProperty(Question,collection_name='answers')

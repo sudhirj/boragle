@@ -2,6 +2,9 @@
 
 {% block content %}
 <div class="block main-col">
+	<ul class="buttons">
+		<li><a href="ask">ask a question</a></li>
+	</ul>
 	{% include "question.dtl" %}
 	{% include "answer.dtl" %}
 	{% include "answer.dtl" %}	

@@ -17,6 +17,7 @@ class BoragleTest(base.ExtendedTestCase):
     
     def test_finder_returns_none_no_match(self):
         self.assertEqual(None,Boragle.find_by_slug('blah'))
+    
         
     
         

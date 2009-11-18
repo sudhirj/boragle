@@ -38,29 +38,34 @@ input[type=submit]
       vertical-align: top
       font-style: italic
       margin: 0.2em
-  ul.nav
-    position: absolute
-    bottom: -0.2em
-    right: 0.7em
-    display: block
-    li
-      display: inline-block
-      a
-        font-size: 0.85em
-        padding: 0.3em 0.5em
-        margin-left: 0.2em
-        background= #fff
-        cursor: pointer
-        +rounded-corners(0.35em)
-        border: 0.1em solid #{!button_bg}
-        &:hover
-          background= !background
+    
+
+
+ul.buttons
+  display: block
+  position: absolute
+  top: -0.65em
+  right: 1em
+  li
+    display: inline-block
+    a
+      font-size: 0.80em
+      padding: 0.2em 0.6em
+      margin-left: 0.2em
+      background= #fff
+      opacity: 0.8
+      cursor: pointer
+      +rounded-corners(0.35em)
+      border: 0.1em solid #{!button_bg}
+      &:hover
+        background= !background
 
 .block
   background= !background
   padding: 1em
   margin-bottom: 1em 
   margin-right: 1em
+  position: relative
   +rounded-corners(1em)
 
 .intro  
@@ -130,6 +135,8 @@ input[type=submit]
 
 .question-list
   width= !data_width
+  position: relative
+
   
 .question
   overflow: hidden
@@ -175,3 +182,8 @@ input[type=submit]
   +rounded-corners(0.5em)
   background: #cfcfcf
   margin-bottom: 1em
+
+.no-data
+  text-align: center
+  padding: 10em
+  color: #cf0000

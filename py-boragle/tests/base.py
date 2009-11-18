@@ -18,7 +18,7 @@ class ExtendedTestCase(unittest.TestCase):
     
     def setUp(self):
         self.mox = Mox()
-        self.logout()
+        self.login()
         
     def clear_data(self):
         for model in []:

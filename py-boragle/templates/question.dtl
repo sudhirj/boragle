@@ -1,7 +1,7 @@
-<a class="question" href="/b-slug/q-slug">
+<a class="question" href="/{{question.boragle.slug}}/{{question.slug}}">
 	<div class="votes"><span class="number">46</span><span class="text">answers</span></div>
 	<div class="main">
-	<span class="text">How much wood would a woodchuck chuck if the woodchuck could chuck wood?</span>
-	<span class="details">What I wto find out is the exact amount of wood that a woodchuck would chuck if the fellow could actualto find out is the exact amount of wood that a woodchuck would chuck if the fellow could actualto find out is the exact amount of wood that a woodchuck would chuck if the fellow could actualto find out is the exact amount of wood that a woodchuck would chuck if the fellow could actualto find out is the exact amount of wood that a woodchuck would chuck if the fellow could actualto find out is the exact amount of wood that a woodchuck would chuck if the fellow could actualto find out is the exact amount of wood that a woodchuck would chuck if the fellow could actually chuck wood.</span>
+	<span class="text">{{question.text}}</span>
+	<span class="details">{{question.details}}</span>
 	</div>
 </a>

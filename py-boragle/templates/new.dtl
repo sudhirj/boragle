@@ -3,10 +3,10 @@
 <div class="block form">
 	<form action="" method="post" accept-charset="utf-8">
 		<div class="field">
-			<label for="question">Name:</label><input type="text" name="question" value=""/>
+			<label for="question">Name:</label><input type="text" name="name" value=""/>
 		</div>
 		<div class="field">
-			<label for="question">URL:</label><input type="text" name="question" value=""/>
+			<label for="question">URL:</label><input type="text" name="url" value=""/>
 		</div>
 		<div class="field">
 			<label for="desc">Description:</label><textarea name="desc"></textarea>

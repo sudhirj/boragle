@@ -1,8 +1,9 @@
 <div class="header block">
 	<h1>
-		Boragle
+		{% if boragle %}{{boragle.name}}{% else %}Boragle{% endif %}
+
 	</h1>
-	<ul class="nav">
+	<ul class="nav buttons">
 		<li>
 			<a href="/">home</a>
 		</li>

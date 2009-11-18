@@ -1,10 +1,23 @@
 {% extends "general.dtl" %}
+
 {% block content %}
+{% if boragle %}
 <div class="block question-list">
+	<ul class="buttons">
+		<li><a href="/{{boragle.slug}}/ask">ask a question</a></li>
+	</ul>
 	<div class="questions">
-		{% include "question.dtl" %}
-		{% include "question.dtl" %}
-		{% include "question.dtl" %}
+		{% for question in boragle.questions %}
+			{% include "question.dtl" %}
+		{% endfor %}
 	</div>
 </div>
+{% else %}
+<div class="block no-data">
+	There's no boragle here :-( 
+	<br/>
+	<br/>
+	Would you like to <a href="/new">create</a> one?
+</div>
+{% endif %}
 {% endblock %}
