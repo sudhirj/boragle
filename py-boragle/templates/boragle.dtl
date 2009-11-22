@@ -4,7 +4,7 @@
 {% if boragle %}
 <div class="block question-list">
 	<ul class="buttons">
-		<li><a href="/{{boragle.slug}}/ask">ask a question</a></li>
+		<li><a href="{{boragle.url}}/ask">ask a question</a></li>
 	</ul>
 	<div class="questions">
 		{% for question in boragle.questions %}

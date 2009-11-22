@@ -41,6 +41,10 @@ class Boragle(ExtendedModel, HasSlugs):
     name = db.StringProperty(required = True)
     desc = db.TextProperty()
     slugs = db.StringListProperty(validator = HasSlugs.validate_slugs)
+    
+    @property
+    def url(self):
+        return '/' + self.slug
 
 class CommentableModel(ExtendedModel, HasComments, HasVotes):
     votes = db.IntegerProperty()    
@@ -57,7 +61,11 @@ class Question(CommentableModel, HasSlugs):
     
     def put(self):
         self.slugs.append(slugify(self.text))
-        super(Question, self).put()
+        return super(Question, self).put()
+    
+    @property
+    def url(self):
+        return self.boragle.url + '/' + self.slug
     
 class Answer(CommentableModel):
     question = db.ReferenceProperty(Question,collection_name='answers')

@@ -19,7 +19,9 @@ class MainHandler(ExtendedHandler):
 
 class QuestionHandler(ExtendedHandler):
     def get(self, boragle_slug, question_slug):
-        self.render_template('qna', dict(question=Question.find_by_slug(question_slug)))
+        question = Question.find_by_slug(question_slug)
+        self.render_template('qna', dict(question=question,
+                                        boragle = question.boragle))
         
 
 class BoragleHandler(ExtendedHandler):
@@ -35,15 +37,19 @@ class NewBoragleHandler(ExtendedHandler):
                 slugs = [self.read('url')],
                 desc = self.read('desc'))
         new_boragle.put()
-        self.redirect('/'+new_boragle.slug)
+        self.redirect(new_boragle.url)
     
 class AskQuestionHandler(ExtendedHandler):
     def get(self, boragle_slug):
         self.render_template('ask-question')
     def post(self, boragle_slug):
-        Question(text = self.read('text'),
+        boragle = Boragle.find_by_slug(boragle_slug)
+        new_question = Question(text = self.read('text'),
                 details = self.read('details'),
-                boragle = Boragle.find_by_slug(boragle_slug)).put()
+                boragle = boragle)
+        new_question.put()
+        self.redirect(new_question.url)
+        
         
 ROUTES =    [
             (r'/([\w-]+)/ask', AskQuestionHandler),
