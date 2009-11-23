@@ -5,16 +5,12 @@
 		<div class="field">
 			<label for="question">Question:</label><input type="text" name="text" value=""/>
 		</div>
-
 		<div class="field">
 			<label for="desc">More information:</label><textarea name="details"></textarea>
 		</div>
 		<div class="field">
 			<label for="ask"></label><input type="submit" value="Ask" name="ask"/>
 		</div>
-
-
-
 	</form>
 </div>
 {% endblock %}

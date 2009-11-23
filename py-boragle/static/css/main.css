@@ -134,17 +134,16 @@ ul.buttons {
     width: 70%;
     margin: 0.5em auto; }
 
-.form.block {
+.form {
   padding: 1em 2em; }
-  .form.block .field {
+  .form .field {
     margin: 1em 0; }
-  .form.block label {
+  .form label {
     width: 7em;
     display: inline-block;
     float: left;
-    margin-right: 1em;
-    margin-top: 0.8em; }
-  .form.block input, .form.block textarea {
+    margin: 0.8em 1em 1em 0; }
+  .form input, .form textarea {
     width: 30em;
     max-width: 35em;
     font-size: 1.2em;
@@ -153,14 +152,14 @@ ul.buttons {
     -webkit-border-radius: 0.5em;
     -moz-border-radius: 0.5em;
     font-family: Georgia, sans-serif; }
-  .form.block textarea {
+  .form textarea {
     font-size: 1em;
     height: 8em;
     max-height: 8em;
     line-height: 1.4em;
     -webkit-border-radius: 1em;
     -moz-border-radius: 1em; }
-  .form.block input[type=submit] {
+  .form input[type=submit] {
     width: auto;
     padding: 0.5em 0.84em;
     cursor: pointer; }
@@ -214,6 +213,9 @@ ul.buttons {
   -moz-border-radius: 0.5em;
   background: #cfcfcf;
   margin-bottom: 1em; }
+
+.answer-area textarea.answer-box {
+  width: 100%; }
 
 .no-data {
   text-align: center;

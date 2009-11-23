@@ -10,5 +10,6 @@
 	{% include "answer.dtl" %}	
 	{% include "answer.dtl" %}	
 	{% include "answer.dtl" %}
+	{% include "answer_question.dtl" %}
 </div>
 {% endblock %}

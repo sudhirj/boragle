@@ -1,0 +1,10 @@
+<div class="block form answer-area">
+	<form action="" method="post" accept-charset="utf-8">
+		<div class="field">
+			<label for="desc">Your answer:</label><textarea name="answer" class="answer-box"></textarea>
+		</div>
+		<div class="field">
+			<input type="submit" value="Post answer" name="answer"/>
+		</div>
+	</form>
+</div>
