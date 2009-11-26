@@ -1,5 +1,5 @@
 import base
-from models import Question, Boragle
+from models import Question, Boragle, Answer
 from google.appengine.ext import db
 
 class BoragleTest(base.ExtendedTestCase):
@@ -16,6 +16,13 @@ class BoragleTest(base.ExtendedTestCase):
         
     def test_url(self):
         self.assertEqual(self.boragle.url+'/'+self.question.slug,self.question.url)
+    
+    def test_answering(self):
+        answer = Answer(question = self.question, text = 'zimply')
+        answer.put()
+        self.assertEqual(1,self.question.answer_count)
+        self.assertEqual('zimply',self.question.answers[0].text)
+        
         
         
         

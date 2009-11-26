@@ -4,7 +4,7 @@ use_library('django', '1.1')
 import wsgiref.handlers, settings, os
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
-from models import Boragle, Question
+from models import Boragle, Question, Answer
 
 class ExtendedHandler(webapp.RequestHandler):
     def render_template(self, template_file, data = None):
@@ -22,12 +22,15 @@ class QuestionHandler(ExtendedHandler):
         question = Question.find_by_slug(question_slug)
         self.render_template('qna', dict(question=question,
                                         boragle = question.boragle))
-        
+    
+    def post(self, boragle_slug, question_slug):
+        question = Question.find_by_slug(question_slug)
+        Answer(question = question, text = self.read('answer')).put()
+        self.redirect(question.url)
 
 class BoragleHandler(ExtendedHandler):
     def get(self, boragle_slug):
         self.render_template('boragle', dict(boragle=Boragle.find_by_slug(boragle_slug)))
-    
 
 class NewBoragleHandler(ExtendedHandler):
     def get(self):

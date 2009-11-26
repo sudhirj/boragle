@@ -58,6 +58,7 @@ class Question(CommentableModel, HasSlugs):
     text = db.StringProperty(required = True)
     details = db.TextProperty()
     slugs = db.StringListProperty()
+    answer_count = db.IntegerProperty(default = 0)
     
     def put(self):
         self.slugs.append(slugify(self.text))
@@ -68,7 +69,13 @@ class Question(CommentableModel, HasSlugs):
         return self.boragle.url + '/' + self.slug
     
 class Answer(CommentableModel):
-    question = db.ReferenceProperty(Question,collection_name='answers')
+    question = db.ReferenceProperty(Question, collection_name='answers')
+    text = db.TextProperty(required = True)
+    
+    def put(self):
+        self.question.answer_count += 1
+        self.question.put()
+        return super(Answer, self).put()
 
 class Borg(ExtendedModel):
     user_id = db.StringProperty(required = True)

@@ -10,3 +10,11 @@ class QuestionTests(base.ExtendedTestCase):
         self.assertTrue(question)
         self.assertEqual("why? why? why?",question.text)
         self.assertEqual("simply, maybe",question.details)
+        
+    def test_answering_question(self):
+        question = Question(boragle = self.boragle, 
+                    text = "why ?")
+        question.put()
+        self.app.post(question.url, dict(answer = 'zimbly'))
+        self.assertEqual('zimbly', question.answers[0].text)
+        

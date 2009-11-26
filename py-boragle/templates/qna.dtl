@@ -6,10 +6,9 @@
 		<li><a href="{{boragle.url}}/ask">ask a question</a></li>
 	</ul>
 	{% include "question.dtl" %}
+	{% for answer in question.answers %}
 	{% include "answer.dtl" %}
-	{% include "answer.dtl" %}	
-	{% include "answer.dtl" %}	
-	{% include "answer.dtl" %}
+	{% endfor %}
 	{% include "answer_question.dtl" %}
 </div>
 {% endblock %}
