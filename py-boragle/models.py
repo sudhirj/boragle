@@ -48,7 +48,7 @@ class Boragle(ExtendedModel, HasSlugs):
     
     @classmethod
     def get_latest(cls, count = 5):
-        return cls.all().order('-created_at').fetch(2)
+        return cls.all().order('-created_at').fetch(count)
 
 class CommentableModel(ExtendedModel, HasComments, HasVotes):
     votes = db.IntegerProperty()    

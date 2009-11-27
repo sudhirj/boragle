@@ -11,7 +11,7 @@
 		{% include "question.dtl" %}
 		{% empty %}
 		<div class="no-data">
-			No one here does seek<br/>
+			No one here seeks<br/>
 			Their wisdom's final winter<br/>
 			<a href="{{boragle.url}}/ask">Be thou the first?</a>
 		</div>
