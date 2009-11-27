@@ -1,11 +1,10 @@
 <div class="sidebar block">
 	<h5>
-		popular boragles
+		latest boragles
 	</h5>
 	<ul>
-		<li><a href="/one">one</a>
-		</li>
-		<li><a href="/two">two</a>
-		</li>
+		{% for boragle in boragles %}
+		<li><a href="{{boragle.url}}">{{boragle.name}}</a></li>
+		{% endfor %}
 	</ul>
 </div>

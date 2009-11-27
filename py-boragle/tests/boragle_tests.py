@@ -19,6 +19,18 @@ class BoragleTest(base.ExtendedTestCase):
 
     def test_url(self):
         self.assertEqual('/koi',self.koi_boragle.url)
+    
+    def test_get_latest_boragles(self):
+        self.koi_boragle.put()
+        Boragle(name = "Koi2", desc= "Boragle about koi fish2", slugs = ["koi2"]).put()
+        Boragle(name = "Koi3", desc= "Boragle about koi fish3", slugs = ["koi3"]).put()
+        boragles = Boragle.get_latest(count = 2)
+        self.assertEqual(2,len(boragles))
+        self.assertEqual(boragles[0].slug,"koi3")
+        self.assertEqual(boragles[1].slug,"koi2")
+        
+        
+        
         
     
         

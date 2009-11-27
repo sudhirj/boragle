@@ -8,3 +8,4 @@ class BoragleTests(base.ExtendedTestCase):
         self.assertTrue(new_boragle)
         self.assertEqual("test1",new_boragle.name)
         self.assertEqual("desc",new_boragle.desc)
+    

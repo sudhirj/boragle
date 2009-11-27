@@ -15,7 +15,7 @@ class ExtendedHandler(webapp.RequestHandler):
 
 class MainHandler(ExtendedHandler):
     def get(self):
-        self.render_template('main')
+        self.render_template('main', dict(boragles = Boragle.get_latest()))
 
 class QuestionHandler(ExtendedHandler):
     def get(self, boragle_slug, question_slug):

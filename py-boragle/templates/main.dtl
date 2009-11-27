@@ -3,5 +3,4 @@
 {% block content %}
 {% include "intro.dtl" %}
 {% include "boragle_list.dtl" %}
-{% include "boragle_list.dtl" %}
 {% endblock %}

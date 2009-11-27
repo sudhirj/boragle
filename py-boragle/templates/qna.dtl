@@ -3,6 +3,7 @@
 {% block content %}
 <div class="block main-col">
 	<ul class="buttons">
+		<li><a href="{{boragle.url}}">go back</a></li>
 		<li><a href="{{boragle.url}}/ask">ask a question</a></li>
 	</ul>
 	{% include "question.dtl" %}
