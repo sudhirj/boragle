@@ -8,7 +8,13 @@
 	</ul>
 	<div class="questions">
 		{% for question in boragle.questions %}
-			{% include "question.dtl" %}
+		{% include "question.dtl" %}
+		{% empty %}
+		<div class="no-data">
+			No one here does seek<br/>
+			Their wisdom's final winter<br/>
+			<a href="{{boragle.url}}/ask">Be thou the first?</a>
+		</div>
 		{% endfor %}
 	</div>
 </div>
