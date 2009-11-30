@@ -1,13 +1,5 @@
 from google.appengine.ext import db
-import re
-
-def slugify(text):
-    removelist = ["a", "an", "as", "at", "before", "but", "by", "for","from","is", "in", "into", "like", "of", "off", "on", "onto","per","since", "than", "the", "this", "that", "to", "up", "via","with"];
-    for word in removelist:
-        slug = re.sub(r'\b'+word+r'\b','',text)
-    slug = re.sub('[^\w\s-]', '', slug).strip().lower()
-    slug = re.sub('\s+', '-', slug)
-    return slug
+import utils
     
 class ExtendedModel(db.Model):
     created_at = db.DateTimeProperty(auto_now_add = True)
@@ -65,7 +57,7 @@ class Question(CommentableModel, HasSlugs):
     answer_count = db.IntegerProperty(default = 0)
     
     def put(self):
-        self.slugs.append(slugify(self.text))
+        self.slugs.append(utils.slugify(self.text))
         return super(Question, self).put()
     
     @property

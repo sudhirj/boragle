@@ -1,6 +1,6 @@
 <div class="header block">
 	<h1>
-		{% if boragle %}{{boragle.name}}{% else %}Boragle{% endif %}
+		{% if boragle %}<a href="{{boragle.url}}">{{boragle.name}}</a>{% else %}<a href="/">Boragle</a>{% endif %}
 
 	</h1>
 	<ul class="nav buttons">

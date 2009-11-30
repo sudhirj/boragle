@@ -5,6 +5,7 @@ import wsgiref.handlers, settings, os
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
 from models import Boragle, Question, Answer
+import utils
 
 class ExtendedHandler(webapp.RequestHandler):
     def render_template(self, template_file, data = None):
@@ -37,7 +38,7 @@ class NewBoragleHandler(ExtendedHandler):
         self.render_template('new')
     def post(self):
         new_boragle = Boragle(name = self.read('name'),
-                slugs = [self.read('url')],
+                slugs = [utils.slugify(self.read('url'))],
                 desc = self.read('desc'))
         new_boragle.put()
         self.redirect(new_boragle.url)

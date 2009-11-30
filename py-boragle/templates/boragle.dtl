@@ -11,16 +11,15 @@
 		{% include "question.dtl" %}
 		{% empty %}
 		<div class="no-data">
-			No one here seeks<br/>
-			Their wisdom's final winter<br/>
-			<a href="{{boragle.url}}/ask">Be thou the first?</a>
+			No questions have been asked here yet...<br/>
+			<a href="{{boragle.url}}/ask">Be the first?</a>
 		</div>
 		{% endfor %}
 	</div>
 </div>
 {% else %}
 <div class="block no-data">
-	There's no boragle here :-( 
+	There's no boragle here...
 	<br/>
 	<br/>
 	Would you like to <a href="/new">create</a> one?
