@@ -1,3 +1,4 @@
+{% if authdetails.authenticated %}
 <div class="block form answer-area">
 	<form action="" method="post" accept-charset="utf-8">
 		<div class="field">
@@ -8,3 +9,6 @@
 		</div>
 	</form>
 </div>
+{% else %}
+<div class="block no-data">You need to <a href="{{authdetails.link}}">sign in</a> to answer questions.</div>
+{% endif %}

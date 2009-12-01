@@ -16,14 +16,17 @@ class ExtendedHandler(webapp.RequestHandler):
 
 class MainHandler(ExtendedHandler):
     def get(self):
-        self.render_template('main', dict(boragles = Boragle.get_latest(count = 5)))
+        self.render_template('main', dict(boragles = Boragle.get_latest(count = 5),
+                                authdetails = utils.authdetails()))
 
 class QuestionHandler(ExtendedHandler):
     def get(self, boragle_slug, question_slug):
         question = Question.find_by_slug(question_slug)
         self.render_template('qna', dict(question=question,
-                                        boragle = question.boragle))
+                                        boragle = question.boragle,
+                                        authdetails = utils.authdetails(question.url)))
     
+    @utils.authorize()
     def post(self, boragle_slug, question_slug):
         question = Question.find_by_slug(question_slug)
         Answer(question = question, text = self.read('answer')).put()
@@ -31,11 +34,14 @@ class QuestionHandler(ExtendedHandler):
 
 class BoragleHandler(ExtendedHandler):
     def get(self, boragle_slug):
-        self.render_template('boragle', dict(boragle=Boragle.find_by_slug(boragle_slug)))
+        self.render_template('boragle', dict(boragle=Boragle.find_by_slug(boragle_slug),
+                                                authdetails = utils.authdetails()))
 
 class NewBoragleHandler(ExtendedHandler):
     def get(self):
-        self.render_template('new')
+        self.render_template('new', dict(authdetails = utils.authdetails(settings.urls['new'])))
+        
+    @utils.authorize()
     def post(self):
         new_boragle = Boragle(name = self.read('name'),
                 slugs = [utils.slugify(self.read('url'))],
@@ -45,7 +51,11 @@ class NewBoragleHandler(ExtendedHandler):
     
 class AskQuestionHandler(ExtendedHandler):
     def get(self, boragle_slug):
-        self.render_template('ask-question')
+        boragle = Boragle.find_by_slug(boragle_slug)
+        self.render_template('ask-question', dict(boragle = boragle,
+                            authdetails = utils.authdetails(boragle.url+settings.urls['ask'])))
+        
+    @utils.authorize()
     def post(self, boragle_slug):
         boragle = Boragle.find_by_slug(boragle_slug)
         new_question = Question(text = self.read('text'),
@@ -56,8 +66,8 @@ class AskQuestionHandler(ExtendedHandler):
         
         
 ROUTES =    [
-            (r'/([\w-]+)/ask', AskQuestionHandler),
-            (r'/new', NewBoragleHandler),
+            (r'/([\w-]+)'+settings.urls['ask'], AskQuestionHandler),
+            (settings.urls['new'], NewBoragleHandler),
             (r'/([\w-]+)/([\w-]+)/*', QuestionHandler),
             (r'/([\w-]+)/*', BoragleHandler),
             (r'.*', MainHandler)

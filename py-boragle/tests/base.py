@@ -4,7 +4,7 @@ import unittest, datetime, random
 from resources.webtest import TestApp
 from resources.stubout import StubOutForTesting
 from resources.mox import Mox
-import main
+import main, os
 
 
 class ExtendedTestCase(unittest.TestCase): 
@@ -32,10 +32,12 @@ class ExtendedTestCase(unittest.TestCase):
         self.clear_data()
 
     def login(self, user="sudhir.j@gmail.com", admin=False):
+        os.environ['USER_EMAIL'] = user
         self._login_stubs.Set(users, 'get_current_user', lambda user = user : users.User(user))
         self._login_stubs.Set(users, 'is_current_user_admin', lambda admin = admin : admin)
 
     def logout(self):
+        os.environ['USER_EMAIL'] = ''
         self._login_stubs.UnsetAll()
 
 

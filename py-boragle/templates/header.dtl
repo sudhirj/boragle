@@ -11,7 +11,7 @@
 			<a href="/new">make a new boragle</a>
 		</li>
 		<li>
-			<a>sign in</a>
+			<a href="{{authdetails.link}}">{{authdetails.label}}</a>
 		</li>
 	</ul>
 </div>

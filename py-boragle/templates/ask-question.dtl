@@ -1,5 +1,6 @@
 {% extends "general.dtl" %}
 {% block content %}
+{% if authdetails.authenticated %}
 <div class="block form">
 	<form action="" method="post" accept-charset="utf-8">
 		<div class="field">
@@ -13,4 +14,9 @@
 		</div>
 	</form>
 </div>
+{% else %}
+<div class ="block no-data">
+	You need to <a href="{{authdetails.link}}">sign in</a> first. 
+</div>
+{% endif %}
 {% endblock %}

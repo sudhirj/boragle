@@ -13,4 +13,8 @@ class BoragleTests(base.ExtendedTestCase):
         self.app.post('/new', dict(name="test1", url = ".t1 tes#t", desc = 'desc'))
         new_boragle = Boragle.find_by_slug('t1-test')
         self.assertTrue(new_boragle)
+        
+    def test_creation_security(self):
+        self.logout()
+        self.app.post('/new', dict(name="test1", url = "t1", desc = 'desc'), status = 403)
 
