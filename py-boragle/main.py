@@ -4,15 +4,24 @@ use_library('django', '1.1')
 import wsgiref.handlers, settings, os
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
-from models import Boragle, Question, Answer
-import utils
+from google.appengine.api import users
+from models import Boragle, Question, Answer, Creator
+import utils, logging
 
 class ExtendedHandler(webapp.RequestHandler):
     def render_template(self, template_file, data = None):
         path = os.path.join(os.path.dirname(__file__), 'templates/'+template_file+'.dtl')
         self.response.out.write(template.render(path, data))
+
     def read(self, param):
         return self.request.get(param)
+        
+    def initialize(self, request, response):
+        self.creator = None
+        current_user = users.get_current_user()
+        if current_user:
+            self.creator = Creator.get_or_insert(current_user.user_id(), user = current_user)
+        return super(ExtendedHandler, self).initialize(request, response)
 
 class MainHandler(ExtendedHandler):
     def get(self):
@@ -45,7 +54,8 @@ class NewBoragleHandler(ExtendedHandler):
     def post(self):
         new_boragle = Boragle(name = self.read('name'),
                 slugs = [utils.slugify(self.read('url'))],
-                desc = self.read('desc'))
+                desc = self.read('desc'),
+                creator = self.creator)
         new_boragle.put()
         self.redirect(new_boragle.url)
     

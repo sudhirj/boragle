@@ -2,10 +2,13 @@ import base
 from models import Boragle, Question
 
 class QuestionTests(base.ExtendedTestCase):
-    boragle = Boragle(name='test1', slugs = ['t1'], desc = 'desc')
-    boragle.put()
-    question = Question(boragle = boragle, text = "why ?")
-    question.put()
+    def setUp(self):
+        super(QuestionTests, self).setUp()
+        self.boragle = Boragle(name='test1', slugs = ['t1'], desc = 'desc', creator = self.creator)
+        self.boragle.put()
+        self.question = Question(boragle = self.boragle, text = "why ?")
+        self.question.put()
+        
     def test_creation(self):
         self.app.post('/t1/ask', dict(text = 'why? why? why?', details = 'simply, maybe'))
         question = Question.find_by_slug('why-why-why')

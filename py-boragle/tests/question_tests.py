@@ -3,10 +3,12 @@ from models import Question, Boragle, Answer
 from google.appengine.ext import db
 
 class BoragleTest(base.ExtendedTestCase):
-    boragle = Boragle(name='test', slugs=['slug1'], desc='desc')
-    boragle.put()
-    question = Question(boragle = boragle, text = 'why on earth?', details = 'Seriously, why?')
-    question.put()
+    def setUp(self):
+        super(BoragleTest, self).setUp()
+        self.boragle = Boragle(name='test', slugs=['slug1'], desc='desc', creator = self.creator)
+        self.boragle.put()
+        self.question = Question(boragle = self.boragle, text = 'why on earth?', details = 'Seriously, why?')
+        self.question.put()
     def test_question_validations(self):
         self.assertRaises(db.BadValueError,Question,slugs = ['q1'])
         self.assertRaises(db.BadValueError,Question,slugs = ['q1'], boragle = self.boragle)
