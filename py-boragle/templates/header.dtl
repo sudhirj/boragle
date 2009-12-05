@@ -10,6 +10,11 @@
 		<li>
 			<a href="/new">make a new boragle</a>
 		</li>
+		{% if creator %}
+		<li>
+			<a class="user-box">{{creator.name}} ({{creator.rep}})</a>
+		</li>
+		{% endif %}
 		<li>
 			<a href="{{authdetails.link}}">{{authdetails.label}}</a>
 		</li>

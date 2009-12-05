@@ -26,7 +26,8 @@ class ExtendedHandler(webapp.RequestHandler):
 class MainHandler(ExtendedHandler):
     def get(self):
         self.render_template('main', dict(boragles = Boragle.get_latest(count = 5),
-                                authdetails = utils.authdetails()))
+                                authdetails = utils.authdetails(),
+                                creator = self.creator))
 
 class QuestionHandler(ExtendedHandler):
     def get(self, boragle_slug, question_slug):
@@ -38,7 +39,7 @@ class QuestionHandler(ExtendedHandler):
     @utils.authorize()
     def post(self, boragle_slug, question_slug):
         question = Question.find_by_slug(question_slug)
-        Answer(question = question, text = self.read('answer')).put()
+        Answer(question = question, text = self.read('answer'), creator = self.creator).put()
         self.redirect(question.url)
 
 class BoragleHandler(ExtendedHandler):
@@ -52,6 +53,7 @@ class NewBoragleHandler(ExtendedHandler):
         
     @utils.authorize()
     def post(self):
+        assert self.creator
         new_boragle = Boragle(name = self.read('name'),
                 slugs = [utils.slugify(self.read('url'))],
                 desc = self.read('desc'),
@@ -70,7 +72,8 @@ class AskQuestionHandler(ExtendedHandler):
         boragle = Boragle.find_by_slug(boragle_slug)
         new_question = Question(text = self.read('text'),
                 details = self.read('details'),
-                boragle = boragle)
+                boragle = boragle,
+                creator = self.creator)
         new_question.put()
         self.redirect(new_question.url)
         

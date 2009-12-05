@@ -94,6 +94,9 @@ ul.buttons {
       border: 0.1em solid #dddddd; }
       ul.buttons li a:hover {
         background: #efefef; }
+      ul.buttons li a.user-box {
+        font-weight: bold;
+        padding: 0.4em 0.8em; }
 
 .block {
   background: #efefef;

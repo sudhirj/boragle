@@ -6,7 +6,7 @@ class QuestionTests(base.ExtendedTestCase):
         super(QuestionTests, self).setUp()
         self.boragle = Boragle(name='test1', slugs = ['t1'], desc = 'desc', creator = self.creator)
         self.boragle.put()
-        self.question = Question(boragle = self.boragle, text = "why ?")
+        self.question = Question(boragle = self.boragle, text = "why ?", creator = self.creator)
         self.question.put()
         
     def test_creation(self):
