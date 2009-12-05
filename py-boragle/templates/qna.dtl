@@ -6,7 +6,7 @@
 		<li><a href="{{boragle.url}}">go back</a></li>
 		<li><a href="{{boragle.url}}/ask">ask a question</a></li>
 	</ul>
-	{% include "question.dtl" %}
+	{% include "full_question.dtl" %}
 	{% for answer in question.answers %}
 	{% include "answer.dtl" %}
 	{% endfor %}

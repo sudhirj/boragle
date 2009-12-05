@@ -2,6 +2,7 @@
 	<div class="votes"><span class="number">{{question.answer_count}}</span><span class="text">answers</span></div>
 	<div class="main">
 	<span class="text">{{question.text}}</span>
-	<span class="details">{{question.details}}</span>
+	{% block question_details %}
+	{% endblock %}
 	</div>
 </a>

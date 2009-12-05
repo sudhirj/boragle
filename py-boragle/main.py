@@ -34,7 +34,8 @@ class QuestionHandler(ExtendedHandler):
         question = Question.find_by_slug(question_slug)
         self.render_template('qna', dict(question=question,
                                         boragle = question.boragle,
-                                        authdetails = utils.authdetails(question.url)))
+                                        authdetails = utils.authdetails(question.url),
+                                        creator = self.creator))
     
     @utils.authorize()
     def post(self, boragle_slug, question_slug):
@@ -45,11 +46,13 @@ class QuestionHandler(ExtendedHandler):
 class BoragleHandler(ExtendedHandler):
     def get(self, boragle_slug):
         self.render_template('boragle', dict(boragle=Boragle.find_by_slug(boragle_slug),
-                                                authdetails = utils.authdetails()))
+                                                authdetails = utils.authdetails(),
+                                                creator = self.creator))
 
 class NewBoragleHandler(ExtendedHandler):
     def get(self):
-        self.render_template('new', dict(authdetails = utils.authdetails(settings.urls['new'])))
+        self.render_template('new', dict(authdetails = utils.authdetails(settings.urls['new']),
+                                        creator = self.creator))
         
     @utils.authorize()
     def post(self):
@@ -65,7 +68,8 @@ class AskQuestionHandler(ExtendedHandler):
     def get(self, boragle_slug):
         boragle = Boragle.find_by_slug(boragle_slug)
         self.render_template('ask-question', dict(boragle = boragle,
-                            authdetails = utils.authdetails(boragle.url+settings.urls['ask'])))
+                            authdetails = utils.authdetails(boragle.url+settings.urls['ask']),
+                            creator = self.creator))
         
     @utils.authorize()
     def post(self, boragle_slug):

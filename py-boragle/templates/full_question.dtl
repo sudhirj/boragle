@@ -1,0 +1,4 @@
+{% extends "question.dtl" %}
+{% block question_details %}
+<span class="details">{{question.details}}</span>
+{% endblock %}
