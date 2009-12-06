@@ -1,3 +1,4 @@
 .DS_Store
 *.pyc
 py-boragle/static/css/.sass-cache/*
+py-boragle/tmtags

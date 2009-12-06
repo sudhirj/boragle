@@ -1,5 +1,5 @@
 import base
-from models import Question, Boragle, Answer
+from models import Question, Boragle, Answer, Avatar
 from google.appengine.ext import db
 
 class BoragleTest(base.ExtendedTestCase):
@@ -7,7 +7,9 @@ class BoragleTest(base.ExtendedTestCase):
         super(BoragleTest, self).setUp()
         self.boragle = Boragle(name='test', slugs=['slug1'], desc='desc', creator = self.creator)
         self.boragle.put()
-        self.question = Question(boragle = self.boragle, text = 'why on earth?', details = 'Seriously, why?', creator = self.creator)
+        self.avatar = Avatar(boragle = self.boragle, creator = self.creator)
+        self.avatar.put()
+        self.question = Question(boragle = self.boragle, text = 'why on earth?', details = 'Seriously, why?', creator = self.avatar)
         self.question.put()
     def test_question_validations(self):
         self.assertRaises(db.BadValueError,Question,boragle = self.boragle)
@@ -20,7 +22,7 @@ class BoragleTest(base.ExtendedTestCase):
         self.assertEqual(self.boragle.url+'/'+self.question.slug,self.question.url)
     
     def test_answering(self):
-        answer = Answer(question = self.question, text = 'zimply', creator = self.creator)
+        answer = Answer(question = self.question, text = 'zimply', creator = self.avatar)
         answer.put()
         self.assertEqual(1,self.question.answer_count)
         self.assertEqual('zimply',self.question.answers[0].text)

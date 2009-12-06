@@ -1,9 +1,9 @@
 <div class="intro block">
 	<h3>
-		What on earth is a Boragle?
+		What's a Boragle?
 	</h3>
 	<p>
-		Join together 'Borg' and 'oracle' - this is what you get. A place where you ask questions that are answered by the collective wisdom of other people.
+		Its a combination of <a href="http://en.wikipedia.org/wiki/Borg_(Star_Trek)" target="_blank">Borg</a> and <a href="http://en.wikipedia.org/wiki/Oracle" target="_blank">oracle</a>. A place where you ask questions that are answered by the collective wisdom of other people.
 	</p>
 	<h3>
 		How is it different from a forum or a wiki?
@@ -13,7 +13,4 @@
 	</p>
 	<h3>Can I use it for my organization?</h3>
 	<p>Sure... Boragle runs on the App Engine, so you could easily deploy your own instance, especially if you're using Google Apps.</p>
-	<p>
-		If this is your first time, take a look at the most recent or the most popular boragles in the lists below.
-	</p>
 </div>

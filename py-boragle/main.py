@@ -5,7 +5,7 @@ import wsgiref.handlers, settings, os
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
 from google.appengine.api import users
-from models import Boragle, Question, Answer, Creator
+from models import Boragle, Question, Answer, Creator, Avatar
 import utils, logging
 
 class ExtendedHandler(webapp.RequestHandler):
@@ -22,6 +22,11 @@ class ExtendedHandler(webapp.RequestHandler):
         if current_user:
             self.creator = Creator.get_or_insert(current_user.user_id(), user = current_user)
         return super(ExtendedHandler, self).initialize(request, response)
+        
+    def handle_exception(self, exception, debug):
+        self.response.out.write(exception)
+        self.response.set_status(403)
+
 
 class MainHandler(ExtendedHandler):
     def get(self):
@@ -32,15 +37,17 @@ class MainHandler(ExtendedHandler):
 class QuestionHandler(ExtendedHandler):
     def get(self, boragle_slug, question_slug):
         question = Question.find_by_slug(question_slug)
+        avatar = Avatar.find_or_create(boragle = question.boragle, creator = self.creator)
         self.render_template('qna', dict(question=question,
                                         boragle = question.boragle,
                                         authdetails = utils.authdetails(question.url),
-                                        creator = self.creator))
+                                        creator = avatar))
     
     @utils.authorize()
     def post(self, boragle_slug, question_slug):
         question = Question.find_by_slug(question_slug)
-        Answer(question = question, text = self.read('answer'), creator = self.creator).put()
+        avatar = Avatar.find_or_create(boragle = question.boragle, creator = self.creator)
+        Answer(question = question, text = self.read('answer'), creator = avatar).put()
         self.redirect(question.url)
 
 class BoragleHandler(ExtendedHandler):
@@ -57,8 +64,10 @@ class NewBoragleHandler(ExtendedHandler):
     @utils.authorize()
     def post(self):
         assert self.creator
+        slug = utils.slugify(self.read('url'))
+        if Boragle.find_by_slug(slug): raise Exception('This url is already in use.')
         new_boragle = Boragle(name = self.read('name'),
-                slugs = [utils.slugify(self.read('url'))],
+                slugs = [slug],
                 desc = self.read('desc'),
                 creator = self.creator)
         new_boragle.put()
@@ -74,10 +83,11 @@ class AskQuestionHandler(ExtendedHandler):
     @utils.authorize()
     def post(self, boragle_slug):
         boragle = Boragle.find_by_slug(boragle_slug)
+        avatar = Avatar.find_or_create(boragle = boragle, creator = self.creator)
         new_question = Question(text = self.read('text'),
                 details = self.read('details'),
                 boragle = boragle,
-                creator = self.creator)
+                creator = avatar)
         new_question.put()
         self.redirect(new_question.url)
         

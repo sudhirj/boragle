@@ -6,9 +6,10 @@ from google.appengine.api import users
 
 class BoragleTest(base.ExtendedTestCase):
     def make_boragle(self):
+        
         return Boragle(name = "Koi", 
                 desc= "Boragle about koi fish", 
-                slugs = ["koi"],
+                slugs = ["koi","koi-fish"],
                 creator = self.creator)
     def test_boragle_saves_vitals(self):
         koi_boragle = self.make_boragle()

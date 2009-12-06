@@ -61,13 +61,34 @@ class Boragle(ExtendedModel, HasSlugs, HasCreator):
     def get_latest(cls, count = 5):
         return cls.all().order('-created_at').fetch(count)
 
+class Avatar(ExtendedModel):
+    boragle = db.ReferenceProperty(Boragle,collection_name='avatars', required=True)
+    creator = db.ReferenceProperty(Creator,collection_name='avatars', required=True)
+    rep = db.IntegerProperty(default=1)
+    
+    @property
+    def name(self):
+        return self.creator.name
+    
+    @property
+    def email(self):
+        return self.creator.email
+    
+    @classmethod
+    def find_or_create(cls, boragle = None, creator = None):
+        avatars = cls.all().filter('boragle = ', boragle).filter('creator = ', creator).fetch(1)
+        if (len(avatars)): return avatars[0]
+        avatar = Avatar(boragle = boragle, creator = creator)
+        avatar.put()
+        return avatar
+        
 class CommentableModel(ExtendedModel, HasComments, HasVotes):
     votes = db.IntegerProperty()    
 
 class Comment(ExtendedModel, HasCreator):
     text = db.TextProperty()
     owner = db.ReferenceProperty(CommentableModel,collection_name='comments')
-    creator = db.ReferenceProperty(Creator,collection_name='comments', required = True)
+    creator = db.ReferenceProperty(Avatar,collection_name='comments', required = True)
     
 class Question(CommentableModel, HasSlugs, HasCreator):
     boragle = db.ReferenceProperty(Boragle,collection_name='questions', required = True)
@@ -75,7 +96,7 @@ class Question(CommentableModel, HasSlugs, HasCreator):
     details = db.TextProperty()
     slugs = db.StringListProperty()
     answer_count = db.IntegerProperty(default = 0)
-    creator = db.ReferenceProperty(Creator,collection_name='questions', required = True)
+    creator = db.ReferenceProperty(Avatar,collection_name='questions', required = True)
     
     def put(self):
         self.slugs.append(utils.slugify(self.text))
@@ -88,11 +109,12 @@ class Question(CommentableModel, HasSlugs, HasCreator):
 class Answer(CommentableModel, HasCreator):
     question = db.ReferenceProperty(Question, collection_name='answers')
     text = db.TextProperty(required = True)
-    creator = db.ReferenceProperty(Creator,collection_name='answers', required=True)
+    creator = db.ReferenceProperty(Avatar,collection_name='answers', required=True)
     
     def put(self):
         self.question.answer_count += 1
         self.question.put()
         return super(Answer, self).put()
+
 
     

@@ -10,11 +10,18 @@ class BoragleTests(base.ExtendedTestCase):
         self.assertEqual("desc",new_boragle.desc)
     
     def test_url_is_slugified_before_save(self):
-        self.app.post('/new', dict(name="test1", url = ".t1 tes#t", desc = 'desc'))
-        new_boragle = Boragle.find_by_slug('t1-test')
+        self.app.post('/new', dict(name="test1", url = ".t45 tes#t", desc = 'desc'))
+        new_boragle = Boragle.find_by_slug('t45-test')
         self.assertTrue(new_boragle)
         
     def test_creation_security(self):
         self.logout()
         self.app.post('/new', dict(name="test1", url = "t1", desc = 'desc'), status = 403)
 
+    def test_duplicate_urls_are_not_allowed(self):
+        count = Boragle.all().count()
+        self.app.post('/new', dict(name="test1", url = ".t1 tes#t", desc = 'desc'))
+        self.assertEqual(count+1,Boragle.all().count())
+        self.app.post('/new', dict(name="duplicate1", url = ".t1 tes#t", desc = 'duplicate desc'), status = 403)
+        self.assertEqual(count+1,Boragle.all().count())
+        
