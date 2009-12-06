@@ -1,3 +1,8 @@
-<div class="answer">
-	<span class="text">{{answer.text}}</span>
+<div class="holder">
+	<div class="answer">
+		<span class="text">{{answer.text}}</span>
+	</div>
+	{% with answer as item%}
+	{% include "user_footnote.dtl" %}
+	{% endwith %}
 </div>

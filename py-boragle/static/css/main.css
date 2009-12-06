@@ -85,13 +85,13 @@ ul.buttons {
     ul.buttons li a {
       font-size: 0.80em;
       padding: 0.2em 0.6em;
-      margin-left: 0.2em;
-      background: white;
+      background: #fff;
       opacity: 0.8;
       cursor: pointer;
-      -webkit-border-radius: 0.35em;
-      -moz-border-radius: 0.35em;
-      border: 0.1em solid #dddddd; }
+      -webkit-border-radius: 0.4em;
+      -moz-border-radius: 0.4em;
+      border: 0.1em solid #dddddd;
+      margin-left: 0.2em; }
       ul.buttons li a:hover {
         background: #efefef; }
       ul.buttons li a.user-box {
@@ -171,8 +171,10 @@ ul.buttons {
   width: 43em;
   position: relative; }
 
+.holder {
+  position: relative; }
+
 .question {
-  overflow: hidden;
   position: relative;
   padding: 1em;
   margin-bottom: 1em;
@@ -180,7 +182,8 @@ ul.buttons {
   -moz-border-radius: 0.5em;
   background: #ddd;
   cursor: pointer;
-  display: block; }
+  display: block;
+  overflow: hidden; }
   .question.last {
     margin-bottom: 0; }
   .question:hover {
@@ -219,6 +222,21 @@ ul.buttons {
 
 .answer-area textarea.answer-box {
   width: 100%; }
+
+.footnote {
+  position: absolute;
+  right: 1em;
+  bottom: -0.6em;
+  font-size: 0.75em;
+  padding: 0.2em 0.6em;
+  background: #fff;
+  opacity: 0.8;
+  cursor: pointer;
+  -webkit-border-radius: 0.4em;
+  -moz-border-radius: 0.4em;
+  border: 0.1em solid #dddddd; }
+  .footnote:hover {
+    background: #efefef; }
 
 .no-data {
   text-align: center;

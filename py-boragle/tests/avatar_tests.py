@@ -29,8 +29,17 @@ class BoragleTest(base.ExtendedTestCase):
         avatar = Avatar(boragle = boragle, creator = self.creator)
         avatar.put()
         
+        creator2 = Creator(user = users.User('new_user@user.com'))
+        creator2.put()
+        avatar2 = Avatar(boragle = boragle, creator = creator2)
+        avatar2.put()
+        
         avatar_from_db = Avatar.find_or_create(boragle = boragle, creator = self.creator)
         self.assertEqual(avatar.key(),avatar_from_db.key())
+        
+        avatar_from_db = Avatar.find_or_create(boragle = boragle, creator = creator2)
+        self.assertEqual(avatar2.key(),avatar_from_db.key())
+        
     
     def test_create_from_find_or_create(self):
         boragle = self.make_boragle()

@@ -30,7 +30,7 @@ class CreatorTest(base.ExtendedTestCase):
     def test_creator_is_automatically_registered_on_first_login(self):
         old_count = Creator.all().count()
         self.login('new@user.com')
-        self.app.get('/sdf')
+        self.app.get('/')
         self.assertEqual(1,Creator.all().count()-old_count)
         self.assertEqual('new@user.com',Creator.all().fetch(1)[0].name)
         

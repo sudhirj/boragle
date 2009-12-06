@@ -24,8 +24,14 @@ class ExtendedHandler(webapp.RequestHandler):
         return super(ExtendedHandler, self).initialize(request, response)
         
     def handle_exception(self, exception, debug):
-        self.response.out.write(exception)
-        self.response.set_status(403)
+        if not debug:
+            self.response.out.write(exception)
+            self.response.set_status(403)
+        else:
+            super(ExtendedHandler, self).handle_exception(exception, debug)
+    
+    def get_avatar_for_boragle(self, boragle):
+        return Avatar.find_or_create(boragle = boragle, creator = self.creator) if self.creator else None
 
 
 class MainHandler(ExtendedHandler):
@@ -37,7 +43,8 @@ class MainHandler(ExtendedHandler):
 class QuestionHandler(ExtendedHandler):
     def get(self, boragle_slug, question_slug):
         question = Question.find_by_slug(question_slug)
-        avatar = Avatar.find_or_create(boragle = question.boragle, creator = self.creator)
+        assert question
+        avatar = self.get_avatar_for_boragle(question.boragle)
         self.render_template('qna', dict(question=question,
                                         boragle = question.boragle,
                                         authdetails = utils.authdetails(question.url),
@@ -46,15 +53,19 @@ class QuestionHandler(ExtendedHandler):
     @utils.authorize()
     def post(self, boragle_slug, question_slug):
         question = Question.find_by_slug(question_slug)
-        avatar = Avatar.find_or_create(boragle = question.boragle, creator = self.creator)
+        avatar = self.get_avatar_for_boragle(question.boragle)
+        assert avatar
+        assert question
         Answer(question = question, text = self.read('answer'), creator = avatar).put()
         self.redirect(question.url)
 
 class BoragleHandler(ExtendedHandler):
     def get(self, boragle_slug):
-        self.render_template('boragle', dict(boragle=Boragle.find_by_slug(boragle_slug),
+        boragle = Boragle.find_by_slug(boragle_slug)
+        avatar = Avatar.find_or_create(boragle=boragle, creator=self.creator) if self.creator else None
+        self.render_template('boragle', dict(boragle=boragle,
                                                 authdetails = utils.authdetails(),
-                                                creator = self.creator))
+                                                creator = avatar))
 
 class NewBoragleHandler(ExtendedHandler):
     def get(self):
@@ -76,14 +87,16 @@ class NewBoragleHandler(ExtendedHandler):
 class AskQuestionHandler(ExtendedHandler):
     def get(self, boragle_slug):
         boragle = Boragle.find_by_slug(boragle_slug)
+        avatar = self.get_avatar_for_boragle(boragle)
         self.render_template('ask-question', dict(boragle = boragle,
                             authdetails = utils.authdetails(boragle.url+settings.urls['ask']),
-                            creator = self.creator))
+                            creator = avatar))
         
     @utils.authorize()
     def post(self, boragle_slug):
         boragle = Boragle.find_by_slug(boragle_slug)
-        avatar = Avatar.find_or_create(boragle = boragle, creator = self.creator)
+        avatar = self.get_avatar_for_boragle(boragle)
+        assert avatar
         new_question = Question(text = self.read('text'),
                 details = self.read('details'),
                 boragle = boragle,

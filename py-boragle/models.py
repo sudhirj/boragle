@@ -76,7 +76,7 @@ class Avatar(ExtendedModel):
     
     @classmethod
     def find_or_create(cls, boragle = None, creator = None):
-        avatars = cls.all().filter('boragle = ', boragle).filter('creator = ', creator).fetch(1)
+        avatars = cls.all().filter('boragle =', boragle).filter('creator =', creator).fetch(1)
         if (len(avatars)): return avatars[0]
         avatar = Avatar(boragle = boragle, creator = creator)
         avatar.put()

@@ -1,4 +1,4 @@
-debug = True
+debug = False
 
 urls = dict(
     new = '/new',

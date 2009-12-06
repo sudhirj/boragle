@@ -29,6 +29,12 @@ class BoragleTest(base.ExtendedTestCase):
     
     def test_creator_required_for_answers(self):
         self.assertRaises(db.BadValueError,Answer,question = self.question, text = 'zimply')
+    
+    def test_parentage(self):
+        answer = Answer(question = self.question, text = 'zimply', creator = self.avatar)
+        answer.put()
+        self.assertEqual(self.question,answer.parent())
+
         
         
         

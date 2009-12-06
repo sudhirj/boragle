@@ -5,7 +5,7 @@ from resources.webtest import TestApp
 from resources.stubout import StubOutForTesting
 from resources.mox import Mox
 import main, os
-from models import Creator
+from models import Question, Answer, Boragle, Creator, Avatar, Comment
 
 
 class ExtendedTestCase(unittest.TestCase): 
@@ -26,7 +26,7 @@ class ExtendedTestCase(unittest.TestCase):
         self.creator = self.make_creator()
         
     def clear_data(self):
-        for model in []:
+        for model in [Question, Answer, Boragle, Creator, Avatar, Comment]:
             for datum in model.all():
                 datum.delete()
         

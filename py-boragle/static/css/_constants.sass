@@ -11,3 +11,14 @@
 =rounded-corners(!radius)
   -webkit-border-radius = !radius
   -moz-border-radius = !radius
+
+=button
+  padding: 0.2em 0.6em
+  background: #fff
+  opacity: 0.8
+  cursor: pointer
+  +rounded-corners(0.4em)
+  border: 0.1em solid #{!button_bg}
+  &:hover
+    background= !background
+  

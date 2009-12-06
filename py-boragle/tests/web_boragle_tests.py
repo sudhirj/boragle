@@ -24,4 +24,7 @@ class BoragleTests(base.ExtendedTestCase):
         self.assertEqual(count+1,Boragle.all().count())
         self.app.post('/new', dict(name="duplicate1", url = ".t1 tes#t", desc = 'duplicate desc'), status = 403)
         self.assertEqual(count+1,Boragle.all().count())
-        
+    
+    def test_smoke_boragle(self):
+        self.app.post('/new', dict(name="test1", url = "test1", desc = 'desc'))
+        self.app.get('/test1')

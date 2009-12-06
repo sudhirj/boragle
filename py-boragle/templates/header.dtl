@@ -12,7 +12,7 @@
 		</li>
 		{% if creator %}
 		<li>
-			<a class="user-box">{{creator.name}} ({{creator.rep}})</a>
+			<a class="user-box">{{creator.name}}</a>
 		</li>
 		{% endif %}
 		<li>
