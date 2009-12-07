@@ -56,7 +56,7 @@ class QuestionHandler(ExtendedHandler):
         avatar = self.get_avatar_for_boragle(question.boragle)
         assert avatar
         assert question
-        Answer(question = question, text = self.read('answer'), creator = avatar).put()
+        Answer.create(question = question, text = self.read('answer'), creator = avatar).put()
         self.redirect(question.url)
 
 class BoragleHandler(ExtendedHandler):

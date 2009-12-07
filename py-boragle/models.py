@@ -107,14 +107,22 @@ class Question(CommentableModel, HasSlugs, HasCreator):
         return self.boragle.url + '/' + self.slug
     
 class Answer(CommentableModel, HasCreator):
-    question = db.ReferenceProperty(Question, collection_name='answers')
+    question = db.ReferenceProperty(Question, collection_name='answers', required=True)
     text = db.TextProperty(required = True)
     creator = db.ReferenceProperty(Avatar,collection_name='answers', required=True)
     
-    def put(self):
-        self.question.answer_count += 1
-        self.question.put()
-        return super(Answer, self).put()
+    @classmethod
+    def create(cls, **kwds):
+        assert kwds['question']
+        assert kwds['creator']
+        kwds['parent'] = kwds['question']
+        answer = Answer(**kwds)
+        def txn(answer):
+            answer.question.answer_count+=1
+            answer.question.put()
+            answer.put()
+        db.run_in_transaction(txn, answer)
+        return answer
 
 
     

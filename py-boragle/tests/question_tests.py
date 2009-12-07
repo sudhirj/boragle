@@ -22,7 +22,8 @@ class BoragleTest(base.ExtendedTestCase):
         self.assertEqual(self.boragle.url+'/'+self.question.slug,self.question.url)
     
     def test_answering(self):
-        answer = Answer(question = self.question, text = 'zimply', creator = self.avatar)
+        answer = Answer.create(question = self.question, text = 'zimply', creator = self.avatar)
+        answer.put()
         answer.put()
         self.assertEqual(1,self.question.answer_count)
         self.assertEqual('zimply',self.question.answers[0].text)
@@ -30,11 +31,11 @@ class BoragleTest(base.ExtendedTestCase):
     def test_creator_required_for_answers(self):
         self.assertRaises(db.BadValueError,Answer,question = self.question, text = 'zimply')
     
-    def test_parentage(self):
-        answer = Answer(question = self.question, text = 'zimply', creator = self.avatar)
-        answer.put()
+    def test_answer_create_and_parentage(self):
+        answer = Answer.create(question = self.question, text = 'zimply', creator = self.avatar)
+        self.assertTrue(answer.is_saved())
         self.assertEqual(self.question,answer.parent())
-
+        
         
         
         
