@@ -113,8 +113,7 @@ class Answer(CommentableModel, HasCreator):
     
     @classmethod
     def create(cls, **kwds):
-        assert kwds['question']
-        assert kwds['creator']
+        assert kwds['question'], kwds['creator']
         kwds['parent'] = kwds['question']
         answer = Answer(**kwds)
         def txn(answer):

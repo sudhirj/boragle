@@ -4,6 +4,7 @@
 		<div class="main">
 			<span class="text">{{question.text}}</span>
 			{% block question_details %}
+			<span class="details">{{question.details|truncatewords:25}}</span>
 			{% endblock %}
 		</div>
 	</a>

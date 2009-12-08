@@ -54,8 +54,7 @@ class QuestionHandler(ExtendedHandler):
     def post(self, boragle_slug, question_slug):
         question = Question.find_by_slug(question_slug)
         avatar = self.get_avatar_for_boragle(question.boragle)
-        assert avatar
-        assert question
+        assert avatar, question
         Answer.create(question = question, text = self.read('answer'), creator = avatar).put()
         self.redirect(question.url)
 
