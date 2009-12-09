@@ -83,7 +83,17 @@ class Avatar(ExtendedModel):
         return avatar
         
 class CommentableModel(ExtendedModel, HasComments, HasVotes):
-    votes = db.IntegerProperty()    
+    vote_count = db.IntegerProperty(default=0)
+    
+    def vote(self, avatar, vote):
+        def txn(item, avatar, vote):
+            pass
+        db.run_in_transaction(txn, self, avatar, vote)
+
+class Vote(ExtendedModel, HasCreator):
+    owner = db.ReferenceProperty(CommentableModel,collection_name='votes', required=True)
+    creator = db.ReferenceProperty(Avatar,collection_name='votes', required=True)
+    vote = db.BooleanProperty(required=True, default=True)
 
 class Comment(ExtendedModel, HasCreator):
     text = db.TextProperty()

@@ -105,7 +105,6 @@ ul.buttons
     float: left
     margin: 0.8em 1em 1em 0
     
-    
   input, textarea
     width: 30em
     max-width: 35em
@@ -133,6 +132,37 @@ ul.buttons
 
 .holder
   position: relative
+  .button
+    +button
+    padding: 0
+    width: 1.1em
+    height: 1.1em
+    display: block
+    text-align: center
+    position: absolute
+    &.up
+      top: -0.5em
+      left: -0.5em
+    &.down
+      bottom: -0.5em
+      left: -0.5em
+  
+.votes 
+  width: 3em
+  margin-right: 1.2em
+  padding: 0.6em
+  float: left
+  background: #efefef
+  +rounded-corners(0.5em)
+  .number, .text
+    display: block
+    text-align: center
+    font-weight: normal
+  .number
+    font-weight: bold
+  .text
+    font-size: 0.8em
+
 .question
   position: relative    
   padding: 1em
@@ -147,6 +177,9 @@ ul.buttons
   &:hover
     background: #cfcfcf
   .main
+    float: left
+    width= !data_width - 8em
+    margin-bottom: 1em
     .text
       font-size: 1em
       font-weight: bold
@@ -157,19 +190,7 @@ ul.buttons
       
   .votes
     display: block
-    margin: 0 0 1.2em 1.2em 
-    float: right
-    padding: 0.6em
-    background: #efefef
-    +rounded-corners(0.5em)
-    .number, .text
-      display: block
-      text-align: center
-      font-weight: normal
-    .number
-      font-weight: bold
     .text
-      font-size: 0.8em
       margin-top: 0.2em
 
 .answer 
@@ -177,6 +198,9 @@ ul.buttons
   +rounded-corners(0.5em)
   background: #cfcfcf
   margin-bottom: 1em
+  overflow: hidden
+
+    
 
 .answer-area
   textarea.answer-box
@@ -188,8 +212,6 @@ ul.buttons
   bottom: -0.6em
   font-size: 0.75em
   +button
-  
-
 
 .no-data
   text-align: center

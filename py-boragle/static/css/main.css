@@ -173,6 +173,45 @@ ul.buttons {
 
 .holder {
   position: relative; }
+  .holder .button {
+    padding: 0.2em 0.6em;
+    background: #fff;
+    opacity: 0.8;
+    cursor: pointer;
+    -webkit-border-radius: 0.4em;
+    -moz-border-radius: 0.4em;
+    border: 0.1em solid #dddddd;
+    padding: 0;
+    width: 1.1em;
+    height: 1.1em;
+    display: block;
+    text-align: center;
+    position: absolute; }
+    .holder .button:hover {
+      background: #efefef; }
+    .holder .button.up {
+      top: -0.5em;
+      left: -0.5em; }
+    .holder .button.down {
+      bottom: -0.5em;
+      left: -0.5em; }
+
+.votes {
+  width: 3em;
+  margin-right: 1.2em;
+  padding: 0.6em;
+  float: left;
+  background: #efefef;
+  -webkit-border-radius: 0.5em;
+  -moz-border-radius: 0.5em; }
+  .votes .number, .votes .text {
+    display: block;
+    text-align: center;
+    font-weight: normal; }
+  .votes .number {
+    font-weight: bold; }
+  .votes .text {
+    font-size: 0.8em; }
 
 .question {
   position: relative;
@@ -188,29 +227,20 @@ ul.buttons {
     margin-bottom: 0; }
   .question:hover {
     background: #cfcfcf; }
-  .question .main .text {
-    font-size: 1em;
-    font-weight: bold;
-    display: block;
-    margin-bottom: 0.3em; }
-  .question .main .details {
-    font-size: 0.9em; }
-  .question .votes {
-    display: block;
-    margin: 0 0 1.2em 1.2em;
-    float: right;
-    padding: 0.6em;
-    background: #efefef;
-    -webkit-border-radius: 0.5em;
-    -moz-border-radius: 0.5em; }
-    .question .votes .number, .question .votes .text {
+  .question .main {
+    float: left;
+    width: 35em;
+    margin-bottom: 1em; }
+    .question .main .text {
+      font-size: 1em;
+      font-weight: bold;
       display: block;
-      text-align: center;
-      font-weight: normal; }
-    .question .votes .number {
-      font-weight: bold; }
+      margin-bottom: 0.3em; }
+    .question .main .details {
+      font-size: 0.9em; }
+  .question .votes {
+    display: block; }
     .question .votes .text {
-      font-size: 0.8em;
       margin-top: 0.2em; }
 
 .answer {
@@ -218,7 +248,8 @@ ul.buttons {
   -webkit-border-radius: 0.5em;
   -moz-border-radius: 0.5em;
   background: #cfcfcf;
-  margin-bottom: 1em; }
+  margin-bottom: 1em;
+  overflow: hidden; }
 
 .answer-area textarea.answer-box {
   width: 100%; }

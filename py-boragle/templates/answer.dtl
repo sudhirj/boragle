@@ -1,8 +1,12 @@
 <div class="holder">
 	<div class="answer">
-		<span class="text">{{answer.text}}</span>
+		<span class="votes holder">
+			<div class="button up">+</div>
+			<div class="button down">-</div>
+			<span class="number">405</span> <span class="text">votes</span></span>
+			<span class="text">{{answer.text}}</span>
+		</div>
+		{% with answer as item%}
+		{% include "user_footnote.dtl" %}
+		{% endwith %}
 	</div>
-	{% with answer as item%}
-	{% include "user_footnote.dtl" %}
-	{% endwith %}
-</div>
