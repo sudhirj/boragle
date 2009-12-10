@@ -87,14 +87,41 @@ class CommentableModel(ExtendedModel, HasComments, HasVotes):
     
     def vote(self, avatar, vote):
         def txn(item, avatar, vote):
-            pass
+            existing_votes = item.votes.ancestor(item).filter('creator = ', avatar).fetch(1)
+            existing_vote = existing_votes[0] if len(existing_votes) else None
+            if existing_vote is None and vote is not None:
+                Vote.create(owner = item, creator = avatar, vote = vote)
+                return
+            if vote is None and existing_vote is not None:
+                existing_vote.delete()
+                item.vote_count+= 1 if not existing_vote.vote else -1
+                item.put()
+                return
+            if existing_vote is None and vote is None: 
+                return
+            if existing_vote.vote is True and vote is False: 
+                item.vote_count-=2
+            if existing_vote.vote is False and vote is True: 
+                item.vote_count+=2
+            existing_vote.vote=vote
+            existing_vote.put() 
+            item.put()   
+
         db.run_in_transaction(txn, self, avatar, vote)
 
 class Vote(ExtendedModel, HasCreator):
     owner = db.ReferenceProperty(CommentableModel,collection_name='votes', required=True)
     creator = db.ReferenceProperty(Avatar,collection_name='votes', required=True)
     vote = db.BooleanProperty(required=True, default=True)
-
+    
+    @classmethod
+    def create(cls, **kwds):
+        kwds['parent'] = kwds['owner']
+        vote = Vote(**kwds)
+        vote.owner.vote_count += 1 if vote.vote else -1
+        vote.put()
+        return vote
+    
 class Comment(ExtendedModel, HasCreator):
     text = db.TextProperty()
     owner = db.ReferenceProperty(CommentableModel,collection_name='comments')
@@ -128,7 +155,6 @@ class Answer(CommentableModel, HasCreator):
         answer = Answer(**kwds)
         def txn(answer):
             answer.question.answer_count+=1
-            answer.question.put()
             answer.put()
         db.run_in_transaction(txn, answer)
         return answer

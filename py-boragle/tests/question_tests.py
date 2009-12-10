@@ -45,7 +45,20 @@ class BoragleTest(base.ExtendedTestCase):
         self.assertEqual(-1,answer.vote_count)
         answer.vote(self.avatar, None)
         self.assertEqual(0,answer.vote_count)
-        
+    def test_answer_downvoting_and_upvoting_modifies_counts(self):
+        answer = Answer.create(question = self.question, text = 'zimply', creator = self.avatar)
+        self.assertEqual(0,answer.vote_count)
+        answer.vote(self.avatar, False)
+        self.assertEqual(-1,answer.vote_count)
+        answer.vote(self.avatar, True)
+        self.assertEqual(1,answer.vote_count)
+        answer.vote(self.avatar, None)
+        self.assertEqual(0,answer.vote_count)  
+    def test_answer_null_voting_modifies_nothing(self):
+        answer = Answer.create(question = self.question, text = 'zimply', creator = self.avatar)
+        self.assertEqual(0,answer.vote_count)
+        answer.vote(self.avatar, None)
+        self.assertEqual(0,answer.vote_count)
         
         
         
