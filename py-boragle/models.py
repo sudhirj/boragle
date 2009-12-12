@@ -85,6 +85,11 @@ class Avatar(ExtendedModel):
 class CommentableModel(ExtendedModel, HasComments, HasVotes):
     vote_count = db.IntegerProperty(default=0)
     
+    def change_vote_count(self, vote, step = 1):
+        if vote is None: return
+        self.vote_count += step if vote else -(step)
+        self.put()
+    
     def vote(self, avatar, vote):
         def txn(item, avatar, vote):
             existing_votes = item.votes.ancestor(item).filter('creator = ', avatar).fetch(1)
@@ -94,18 +99,13 @@ class CommentableModel(ExtendedModel, HasComments, HasVotes):
                 return
             if vote is None and existing_vote is not None:
                 existing_vote.delete()
-                item.vote_count+= 1 if not existing_vote.vote else -1
-                item.put()
+                item.change_vote_count(existing_vote.vote, step = -1)
                 return
             if existing_vote is None and vote is None: 
                 return
-            if existing_vote.vote is True and vote is False: 
-                item.vote_count-=2
-            if existing_vote.vote is False and vote is True: 
-                item.vote_count+=2
+            item.change_vote_count((vote and not existing_vote.vote), step = 2)
             existing_vote.vote=vote
-            existing_vote.put() 
-            item.put()   
+            existing_vote.put()
 
         db.run_in_transaction(txn, self, avatar, vote)
 
@@ -118,7 +118,7 @@ class Vote(ExtendedModel, HasCreator):
     def create(cls, **kwds):
         kwds['parent'] = kwds['owner']
         vote = Vote(**kwds)
-        vote.owner.vote_count += 1 if vote.vote else -1
+        vote.owner.change_vote_count(vote.vote)
         vote.put()
         return vote
     

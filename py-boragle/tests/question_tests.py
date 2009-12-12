@@ -1,6 +1,7 @@
 import base
 from models import Question, Boragle, Answer, Avatar
 from google.appengine.ext import db
+import logging
 
 class BoragleTest(base.ExtendedTestCase):
     def setUp(self):
@@ -38,26 +39,46 @@ class BoragleTest(base.ExtendedTestCase):
         
     def test_answer_upvoting_and_downvoting_modifies_counts(self):
         answer = Answer.create(question = self.question, text = 'zimply', creator = self.avatar)
+        key = answer.key()
+        answer = Answer.get(key)        
         self.assertEqual(0,answer.vote_count)
+        answer = Answer.get(key)
         answer.vote(self.avatar, True)
+        answer = Answer.get(key)
         self.assertEqual(1,answer.vote_count)
+        answer = Answer.get(key)
         answer.vote(self.avatar, False)
+        answer = Answer.get(key)
         self.assertEqual(-1,answer.vote_count)
+        answer = Answer.get(key)
         answer.vote(self.avatar, None)
+        answer = Answer.get(key)
         self.assertEqual(0,answer.vote_count)
     def test_answer_downvoting_and_upvoting_modifies_counts(self):
         answer = Answer.create(question = self.question, text = 'zimply', creator = self.avatar)
+        key = answer.key()
+        answer = Answer.get(key)
         self.assertEqual(0,answer.vote_count)
+        answer = Answer.get(key)        
         answer.vote(self.avatar, False)
+        answer = Answer.get(key)
         self.assertEqual(-1,answer.vote_count)
+        answer = Answer.get(key)    
         answer.vote(self.avatar, True)
+        answer = Answer.get(key)       
         self.assertEqual(1,answer.vote_count)
+        answer = Answer.get(key)
         answer.vote(self.avatar, None)
+        answer = Answer.get(key)
         self.assertEqual(0,answer.vote_count)  
     def test_answer_null_voting_modifies_nothing(self):
         answer = Answer.create(question = self.question, text = 'zimply', creator = self.avatar)
+        key = answer.key()
+        answer = Answer.get(key)        
         self.assertEqual(0,answer.vote_count)
+        answer = Answer.get(key)
         answer.vote(self.avatar, None)
+        answer = Answer.get(key)        
         self.assertEqual(0,answer.vote_count)
         
         
