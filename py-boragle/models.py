@@ -90,10 +90,14 @@ class CommentableModel(ExtendedModel, HasComments, HasVotes):
         self.vote_count += step if vote else -(step)
         self.put()
     
+    def find_vote_by_avatar(self, avatar):
+        existing_votes = self.votes.ancestor(self).filter('creator = ', avatar).fetch(1)
+        return existing_votes[0] if len(existing_votes) else None
+        
     def vote(self, avatar, vote):
         def txn(item, avatar, vote):
-            existing_votes = item.votes.ancestor(item).filter('creator = ', avatar).fetch(1)
-            existing_vote = existing_votes[0] if len(existing_votes) else None
+            existing_vote = item.find_vote_by_avatar(avatar)
+            if existing_vote is None and vote is None: return
             if existing_vote is None and vote is not None:
                 Vote.create(owner = item, creator = avatar, vote = vote)
                 return
@@ -101,12 +105,10 @@ class CommentableModel(ExtendedModel, HasComments, HasVotes):
                 existing_vote.delete()
                 item.change_vote_count(existing_vote.vote, step = -1)
                 return
-            if existing_vote is None and vote is None: 
-                return
             item.change_vote_count((vote and not existing_vote.vote), step = 2)
             existing_vote.vote=vote
             existing_vote.put()
-
+            
         db.run_in_transaction(txn, self, avatar, vote)
 
 class Vote(ExtendedModel, HasCreator):
@@ -136,7 +138,8 @@ class Question(CommentableModel, HasSlugs, HasCreator):
     creator = db.ReferenceProperty(Avatar,collection_name='questions', required = True)
     
     def put(self):
-        self.slugs.append(utils.slugify(self.text))
+        slug = utils.slugify(self.text)
+        self.slugs.append(slug)
         return super(Question, self).put()
     
     @property
@@ -158,6 +161,9 @@ class Answer(CommentableModel, HasCreator):
             answer.put()
         db.run_in_transaction(txn, answer)
         return answer
-
+    
+    @property
+    def voting_url(self):
+        return self.question.url + '/vote/' + str(self.key())
 
     

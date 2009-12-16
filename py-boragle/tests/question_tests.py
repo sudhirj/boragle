@@ -12,6 +12,7 @@ class BoragleTest(base.ExtendedTestCase):
         self.avatar.put()
         self.question = Question(boragle = self.boragle, text = 'why on earth?', details = 'Seriously, why?', creator = self.avatar)
         self.question.put()
+        
     def test_question_validations(self):
         self.assertRaises(db.BadValueError,Question,boragle = self.boragle)
         self.assertRaises(db.BadValueError,Question,boragle = self.boragle, text = "question1?")
@@ -54,6 +55,7 @@ class BoragleTest(base.ExtendedTestCase):
         answer.vote(self.avatar, None)
         answer = Answer.get(key)
         self.assertEqual(0,answer.vote_count)
+    
     def test_answer_downvoting_and_upvoting_modifies_counts(self):
         answer = Answer.create(question = self.question, text = 'zimply', creator = self.avatar)
         key = answer.key()
@@ -71,6 +73,7 @@ class BoragleTest(base.ExtendedTestCase):
         answer.vote(self.avatar, None)
         answer = Answer.get(key)
         self.assertEqual(0,answer.vote_count)  
+    
     def test_answer_null_voting_modifies_nothing(self):
         answer = Answer.create(question = self.question, text = 'zimply', creator = self.avatar)
         key = answer.key()
@@ -80,6 +83,10 @@ class BoragleTest(base.ExtendedTestCase):
         answer.vote(self.avatar, None)
         answer = Answer.get(key)        
         self.assertEqual(0,answer.vote_count)
+    
+    def test_upvoting(self):
+        answer = Answer.create(question = self.question, text = 'zimply', creator = self.avatar)
+        self.assertEqual(answer.question.url+'/vote/'+str(answer.key()),answer.voting_url)
         
         
         

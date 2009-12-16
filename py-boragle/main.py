@@ -102,11 +102,17 @@ class AskQuestionHandler(ExtendedHandler):
                 creator = avatar)
         new_question.put()
         self.redirect(new_question.url)
+
+class VotingHandler(ExtendedHandler):
+    @utils.authorize()
+    def get(self, boragle_slug, question_slug, answer_key,vote ):
+        pass        
         
         
 ROUTES =    [
             (r'/([\w-]+)'+settings.urls['ask'], AskQuestionHandler),
             (settings.urls['new'], NewBoragleHandler),
+            (r'/([\w-]+)/([\w-]+)/vote/([\w-]+)/([10])/*', VotingHandler),
             (r'/([\w-]+)/([\w-]+)/*', QuestionHandler),
             (r'/([\w-]+)/*', BoragleHandler),
             (r'.*', MainHandler)

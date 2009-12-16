@@ -1,9 +1,9 @@
 <div class="holder">
 	<div class="answer">
 		<span class="votes holder">
-			<div class="button up">+</div>
-			<div class="button down">-</div>
-			<span class="number">405</span> <span class="text">votes</span></span>
+			<a class="button up" href="{{answer.voting_url}}/1">+</a>
+			<a class="button down" href="{{answer.voting_url}}/0">-</a>
+			<span class="number">{{answer.vote_count}}</span> <span class="text">votes</span></span>
 			<span class="text">{{answer.text}}</span>
 		</div>
 		{% with answer as item%}

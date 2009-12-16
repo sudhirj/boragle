@@ -1,5 +1,5 @@
 import base
-from models import Boragle, Question, Avatar
+from models import Boragle, Question, Avatar, Answer
 
 class QuestionTests(base.ExtendedTestCase):
     def setUp(self):
@@ -36,5 +36,11 @@ class QuestionTests(base.ExtendedTestCase):
     
     def test_smoke_question_page(self):
         self.app.get(self.question.url)
+    
+    def test_voting_security(self):
+        answer = Answer.create(question = self.question, text= 'fake answer', creator = self.avatar)
+        self.app.get(answer.voting_url+'/1', status = 200)
+        self.logout()
+        self.app.get(answer.voting_url+'/1', status = 302)
         
         
