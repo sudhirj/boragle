@@ -39,32 +39,42 @@ blockquote, q {
 
 body {
   font-size: 16px;
-  width: 85%;
+  width: 90%;
   font-family: Georgia, sans;
-  margin: 1em auto;
+  margin: 1.5em auto;
   max-width: 60em;
   min-width: 43em;
   line-height: 1.2em;
-  color: #000; }
+  color: black; }
 
 a {
   text-decoration: none;
-  color: #000; }
+  color: black; }
   a:hover {
     text-decoration: none; }
   a:visited {
-    text-decoration: none;
-    color: #000; }
+    text-decoration: none; }
+
+.block {
+  padding: 1em 0;
+  margin-bottom: 1em;
+  position: relative;
+  border: 0.1em solid #efefef;
+  border-left: none;
+  border-right: none; }
 
 input[type=submit] {
   background-color: #ccc; }
 
 .main-col {
-  width: 43em; }
+  width: 43em;
+  margin-bottom: 0; }
 
 .header {
   position: relative;
-  min-width: 43em; }
+  min-width: 43em;
+  margin-right: 0;
+  border-bottom: 0.2em solid #efefef; }
   .header h1 {
     font-size: 2em;
     display: inline;
@@ -78,15 +88,14 @@ input[type=submit] {
 ul.buttons {
   display: block;
   position: absolute;
-  top: -0.65em;
+  top: -0.7em;
   right: 1em; }
   ul.buttons li {
     display: inline-block; }
     ul.buttons li a {
       font-size: 0.80em;
-      padding: 0.2em 0.6em;
+      padding: 0.25em 0.65em;
       background: #fff;
-      opacity: 0.8;
       cursor: pointer;
       -webkit-border-radius: 0.4em;
       -moz-border-radius: 0.4em;
@@ -97,15 +106,6 @@ ul.buttons {
       ul.buttons li a.user-box {
         font-weight: bold;
         padding: 0.4em 0.8em; }
-
-.block {
-  background: #efefef;
-  padding: 1em;
-  margin-bottom: 1em;
-  margin-right: 1em;
-  position: relative;
-  -webkit-border-radius: 1em;
-  -moz-border-radius: 1em; }
 
 .intro {
   float: left;
@@ -174,9 +174,8 @@ ul.buttons {
 .holder {
   position: relative; }
   .holder .button {
-    padding: 0.2em 0.6em;
+    padding: 0.25em 0.65em;
     background: #fff;
-    opacity: 0.8;
     cursor: pointer;
     -webkit-border-radius: 0.4em;
     -moz-border-radius: 0.4em;
@@ -201,7 +200,7 @@ ul.buttons {
   margin-right: 1.2em;
   padding: 0.6em;
   float: left;
-  background: #efefef;
+  background: white;
   -webkit-border-radius: 0.5em;
   -moz-border-radius: 0.5em; }
   .votes .number, .votes .text {
@@ -217,16 +216,14 @@ ul.buttons {
   position: relative;
   padding: 1em;
   margin-bottom: 1em;
+  background: #efefef;
   -webkit-border-radius: 0.5em;
   -moz-border-radius: 0.5em;
-  background: #ddd;
   cursor: pointer;
   display: block;
   overflow: hidden; }
   .question.last {
     margin-bottom: 0; }
-  .question:hover {
-    background: #cfcfcf; }
   .question .main {
     float: left;
     width: 35em;
@@ -247,10 +244,14 @@ ul.buttons {
   padding: 1em;
   -webkit-border-radius: 0.5em;
   -moz-border-radius: 0.5em;
-  background: #cfcfcf;
+  background: #efefef;
   margin-bottom: 1em;
-  margin-left: 1em;
+  margin-left: 1.5em;
   overflow: hidden; }
+  .answer .main {
+    float: left;
+    width: 33em;
+    margin-bottom: 1em; }
   .answer .votes .button {
     line-height: 0.95em;
     font-size: 0.9em; }
@@ -263,9 +264,8 @@ ul.buttons {
   right: 1em;
   bottom: -0.6em;
   font-size: 0.75em;
-  padding: 0.2em 0.6em;
+  padding: 0.25em 0.65em;
   background: #fff;
-  opacity: 0.8;
   cursor: pointer;
   -webkit-border-radius: 0.4em;
   -moz-border-radius: 0.4em;
@@ -275,5 +275,8 @@ ul.buttons {
 
 .no-data {
   text-align: center;
-  padding: 10em;
-  color: #cf0000; }
+  padding: 3em;
+  color: #cf0000;
+  margin-bottom: 0; }
+  .no-data a {
+    border-bottom: 0.1em dotted #efefef; }

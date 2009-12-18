@@ -145,7 +145,7 @@ class Question(CommentableModel, HasSlugs, HasCreator):
     
     def put(self):
         slug = utils.slugify(self.text)
-        self.slugs.append(slug)
+        if not slug in self.slugs: self.slugs.append(slug)
         return super(Question, self).put()
     
     @property

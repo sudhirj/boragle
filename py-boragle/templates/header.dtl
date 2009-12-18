@@ -1,4 +1,4 @@
-<div class="header block">
+<div class="block header">
 	<h1>
 		{% if boragle %}<a href="{{boragle.url}}">{{boragle.name}}</a>{% else %}<a href="/">Boragle</a>{% endif %}
 

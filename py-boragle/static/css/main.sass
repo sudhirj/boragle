@@ -3,32 +3,42 @@
 
 body
   font-size: 16px
-  width: 85%
+  width: 90%
   font-family: Georgia, sans
-  margin: 1em auto
+  margin: 1.5em auto
   max-width= !total_width
   min-width= !data_width
   line-height: 1.2em
-  color: #000
+  color= !base
   
 a
   text-decoration: none
-  color: #000
+  color= !base
   &:hover
     text-decoration: none
   &:visited
     text-decoration: none
-    color: #000
+
+.block
+  padding: 1em 0
+  margin-bottom: 1em 
+  position: relative
+  border: 0.1em solid #{!line}
+  border-left: none
+  border-right: none
 
 input[type=submit]
   background-color: #ccc
   
 .main-col
   width= !data_width
+  margin-bottom: 0
   
 .header
   position: relative
   min-width= !data_width
+  margin-right: 0
+  border-bottom: 0.2em solid #{!line}
   h1
     font-size: 2em
     display: inline
@@ -44,7 +54,7 @@ input[type=submit]
 ul.buttons
   display: block
   position: absolute
-  top: -0.65em
+  top: -0.7em
   right: 1em
   li
     display: inline-block
@@ -56,13 +66,7 @@ ul.buttons
         font-weight: bold
         padding: 0.4em 0.8em
 
-.block
-  background= !background
-  padding: 1em
-  margin-bottom: 1em 
-  margin-right: 1em
-  position: relative
-  +rounded-corners(1em)
+
 
 .intro  
   float: left
@@ -152,7 +156,7 @@ ul.buttons
   margin-right: 1.2em
   padding: 0.6em
   float: left
-  background: #efefef
+  background= !base_bg
   +rounded-corners(0.5em)
   .number, .text
     display: block
@@ -167,15 +171,13 @@ ul.buttons
   position: relative    
   padding: 1em
   margin-bottom: 1em 
+  background= !background
   +rounded-corners(0.5em)
-  background: #ddd
   cursor: pointer
   display: block
   overflow: hidden
   &.last
     margin-bottom: 0
-  &:hover
-    background: #cfcfcf
   .main
     float: left
     width= !data_width - 8em
@@ -196,17 +198,19 @@ ul.buttons
 .answer 
   padding: 1em
   +rounded-corners(0.5em)
-  background: #cfcfcf
+  background= !background
   margin-bottom: 1em
-  margin-left: 1em
+  margin-left: 1.5em
   overflow: hidden
+  .main
+    float: left
+    width= !data_width - 10em
+    margin-bottom: 1em
   
   .votes
     .button
       line-height: 0.95em
       font-size: 0.9em
-
-    
 
 .answer-area
   textarea.answer-box
@@ -221,5 +225,8 @@ ul.buttons
 
 .no-data
   text-align: center
-  padding: 10em
+  padding: 3em
   color: #cf0000
+  margin-bottom: 0
+  a
+    border-bottom: 0.1em dotted #{!background}

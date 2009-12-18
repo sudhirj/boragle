@@ -111,8 +111,11 @@ class BoragleTest(base.ExtendedTestCase):
         answer = Answer.create(question = self.question, text = 'zimply', creator = self.avatar)
         self.assertEqual(answer.question.url+'/vote/'+str(answer.key()),answer.voting_url)
         
-        
-        
+    def test_slugs_are_saved_only_once_on_questions(self):
+        self.question.put()
+        self.question.put()
+        self.question.put()
+        self.assertEqual(len(self.question.slugs),1)        
         
         
         

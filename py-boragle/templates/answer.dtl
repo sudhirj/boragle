@@ -3,10 +3,13 @@
 		<span class="votes holder">
 			<a class="button up" href="{{answer.voting_url}}/up">+</a>
 			<a class="button down" href="{{answer.voting_url}}/down">-</a>
-			<span class="number">{{answer.vote_count}}</span> <span class="text">votes</span></span>
+			<span class="number">{{answer.vote_count}}</span> <span class="text">votes</span>
+		</span>
+		<div class="main">
 			<span class="text">{{answer.text}}</span>
 		</div>
-		{% with answer as item%}
-		{% include "user_footnote.dtl" %}
-		{% endwith %}
 	</div>
+	{% with answer as item%}
+	{% include "user_footnote.dtl" %}
+	{% endwith %}
+</div>
