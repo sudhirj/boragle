@@ -60,6 +60,10 @@ class Boragle(ExtendedModel, HasSlugs, HasCreator):
     @classmethod
     def get_latest(cls, count = 5):
         return cls.all().order('-created_at').fetch(count)
+    
+    def find_question_by_slug(self, slug):
+        questions = self.questions.filter('slugs =', slug).fetch(1)
+        return questions[0] if len(questions) else None
 
 class Avatar(ExtendedModel):
     boragle = db.ReferenceProperty(Boragle,collection_name='avatars', required=True)
@@ -105,6 +109,8 @@ class CommentableModel(ExtendedModel, HasComments, HasVotes):
                 existing_vote.delete()
                 item.change_vote_count(existing_vote.vote, step = -1)
                 return
+            if (vote is existing_vote.vote): 
+                return
             item.change_vote_count((vote and not existing_vote.vote), step = 2)
             existing_vote.vote=vote
             existing_vote.put()
@@ -146,6 +152,9 @@ class Question(CommentableModel, HasSlugs, HasCreator):
     def url(self):
         return self.boragle.url + '/' + self.slug
     
+    def get_answer(self, key):
+        return self.answers.filter('__key__ = ', db.Key(key)).fetch(1)[0]
+    
 class Answer(CommentableModel, HasCreator):
     question = db.ReferenceProperty(Question, collection_name='answers', required=True)
     text = db.TextProperty(required = True)
@@ -158,7 +167,9 @@ class Answer(CommentableModel, HasCreator):
         answer = Answer(**kwds)
         def txn(answer):
             answer.question.answer_count+=1
+            answer.question.put()            
             answer.put()
+
         db.run_in_transaction(txn, answer)
         return answer
     

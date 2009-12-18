@@ -249,7 +249,11 @@ ul.buttons {
   -moz-border-radius: 0.5em;
   background: #cfcfcf;
   margin-bottom: 1em;
+  margin-left: 1em;
   overflow: hidden; }
+  .answer .votes .button {
+    line-height: 0.95em;
+    font-size: 0.9em; }
 
 .answer-area textarea.answer-box {
   width: 100%; }

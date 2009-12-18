@@ -1,8 +1,8 @@
 <div class="holder">
 	<div class="answer">
 		<span class="votes holder">
-			<a class="button up" href="{{answer.voting_url}}/1">+</a>
-			<a class="button down" href="{{answer.voting_url}}/0">-</a>
+			<a class="button up" href="{{answer.voting_url}}/up">+</a>
+			<a class="button down" href="{{answer.voting_url}}/down">-</a>
 			<span class="number">{{answer.vote_count}}</span> <span class="text">votes</span></span>
 			<span class="text">{{answer.text}}</span>
 		</div>

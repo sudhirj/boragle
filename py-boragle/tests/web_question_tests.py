@@ -27,8 +27,10 @@ class QuestionTests(base.ExtendedTestCase):
         
     def test_answering_question(self):
         self.app.post(self.question.url, dict(answer = 'zimbly'))
-        self.assertEqual('zimbly', self.question.answers[0].text)
-        self.assertEqual(self.creator.name, self.question.answers[0].creator.name)
+        question = Question.get(self.question.key())
+        self.assertEqual('zimbly', question.answers[0].text)
+        self.assertEqual(self.creator.name, question.answers[0].creator.name)
+        self.assertEqual(1, question.answer_count)
         
     def test_answering_question_security(self):
         self.logout()
@@ -39,8 +41,23 @@ class QuestionTests(base.ExtendedTestCase):
     
     def test_voting_security(self):
         answer = Answer.create(question = self.question, text= 'fake answer', creator = self.avatar)
-        self.app.get(answer.voting_url+'/1', status = 200)
+        self.app.get(answer.voting_url+'/up', status = 302)
+        answer = Answer.get(answer.key())
+        self.assertEqual(answer.vote_count, 1)
         self.logout()
-        self.app.get(answer.voting_url+'/1', status = 302)
+        self.app.get(answer.voting_url+'/down', status = 302)
+        answer = Answer.get(answer.key())
+        self.assertEqual(answer.vote_count, 1)        
+        
+    
+    def test_voting_up(self):
+        answer = Answer.create(question = self.question, text= 'fake answer', creator = self.avatar)
+        self.app.get(answer.voting_url+'/up', status = 302)
+        answer = Answer.get(answer.key())
+        self.assertEqual(answer.vote_count,1)
+        self.app.get(answer.voting_url+'/down', status = 302)
+        answer = Answer.get(answer.key())
+        self.assertEqual(answer.vote_count,-1)
+        
         
         

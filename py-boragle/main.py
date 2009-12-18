@@ -55,7 +55,7 @@ class QuestionHandler(ExtendedHandler):
         question = Question.find_by_slug(question_slug)
         avatar = self.get_avatar_for_boragle(question.boragle)
         assert avatar, question
-        Answer.create(question = question, text = self.read('answer'), creator = avatar).put()
+        Answer.create(question = question, text = self.read('answer'), creator = avatar)
         self.redirect(question.url)
 
 class BoragleHandler(ExtendedHandler):
@@ -106,13 +106,18 @@ class AskQuestionHandler(ExtendedHandler):
 class VotingHandler(ExtendedHandler):
     @utils.authorize()
     def get(self, boragle_slug, question_slug, answer_key,vote ):
-        pass        
+        boragle = Boragle.find_by_slug(boragle_slug)
+        avatar = self.get_avatar_for_boragle(boragle)
+        question = boragle.find_question_by_slug(question_slug)
+        answer = question.get_answer(answer_key)
+        answer.vote(avatar, vote == 'up')
+        self.redirect(question.url)
         
         
 ROUTES =    [
             (r'/([\w-]+)'+settings.urls['ask'], AskQuestionHandler),
             (settings.urls['new'], NewBoragleHandler),
-            (r'/([\w-]+)/([\w-]+)/vote/([\w-]+)/([10])/*', VotingHandler),
+            (r'/([\w-]+)/([\w-]+)/vote/([\w-]+)/(up|down)/*', VotingHandler),
             (r'/([\w-]+)/([\w-]+)/*', QuestionHandler),
             (r'/([\w-]+)/*', BoragleHandler),
             (r'.*', MainHandler)
