@@ -28,3 +28,14 @@ class BoragleTests(base.ExtendedTestCase):
     def test_smoke_boragle(self):
         self.app.post('/new', dict(name="test1", url = "test1", desc = 'desc'))
         self.app.get('/test1')
+        
+    def test_leaving_url_empty_slugs_the_name(self):
+        import utils
+        name="test1 is the new thing"
+        slug = utils.slugify(name)
+        self.app.post('/new', dict(name=name, url = "  ", desc = 'desc'))
+        new_boragle = Boragle.find_by_slug(slug)
+        self.assertTrue(new_boragle)
+        self.assertEqual(name,new_boragle.name)
+        self.assertEqual("desc",new_boragle.desc)
+        

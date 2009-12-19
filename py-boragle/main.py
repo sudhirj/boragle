@@ -75,6 +75,7 @@ class NewBoragleHandler(ExtendedHandler):
     def post(self):
         assert self.creator
         slug = utils.slugify(self.read('url'))
+        if slug == '': slug = utils.slugify(self.read('name'))
         if Boragle.find_by_slug(slug): raise Exception('This url is already in use.')
         new_boragle = Boragle(name = self.read('name'),
                 slugs = [slug],
