@@ -113,12 +113,18 @@ class VotingHandler(ExtendedHandler):
         answer = question.get_answer(answer_key)
         answer.vote(avatar, vote == 'up')
         self.redirect(question.url)
-        
+
+class UserHandler(ExtendedHandler):
+    def get(self, user_id):
+        creator = Creator.find_by_id(user_id)
+        self.render_template('user', dict(creator = creator, authdetails = utils.authdetails(creator.url)))
+            
         
 ROUTES =    [
-            (r'/([\w-]+)'+settings.urls['ask'], AskQuestionHandler),
-            (settings.urls['new'], NewBoragleHandler),
-            (r'/([\w-]+)/([\w-]+)/vote/([\w-]+)/(up|down)/*', VotingHandler),
+            ('/'+settings.urls['users']+r'/(\d+)', UserHandler),
+            (r'/([\w-]+)/'+settings.urls['ask'], AskQuestionHandler),
+            ('/'+settings.urls['new'], NewBoragleHandler),
+            (r'/([\w-]+)/([\w-]+)/'+settings.urls['vote']+'/([\w-]+)/(up|down)/*', VotingHandler),
             (r'/([\w-]+)/([\w-]+)/*', QuestionHandler),
             (r'/([\w-]+)/*', BoragleHandler),
             (r'.*', MainHandler)

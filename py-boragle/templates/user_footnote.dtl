@@ -1,1 +1,5 @@
-<div class="footnote"><span class="name">{{item.creator.name}}</span></div>
+<div class="footnote">
+	{% with item.creator as creator %}
+	{% include "user_box.dtl" %}
+	{% endwith %}
+</div>

@@ -1,5 +1,5 @@
 !background = #efefef
-!button_bg = #ddd
+!button_bg = #efefef
 !line = #efefef
 !link = #3B5998
 !base = #000
@@ -19,9 +19,11 @@
 =button
   padding: 0.25em 0.65em
   background: #fff
+  color= !base
   cursor: pointer
   +rounded-corners(0.4em)
-  border: 0.1em solid #{!button_bg}
+  border: 0.1em solid #ddd
   &:hover
     background= !background
+    color= !link
   

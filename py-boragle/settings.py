@@ -1,7 +1,9 @@
 debug = False
 
+
 urls = dict(
-    new = '/new',
-    ask = '/ask',
-    vote = '/vote'
+    new = 'new',
+    ask = 'ask',
+    vote = 'vote',
+    users = 'users'
 )

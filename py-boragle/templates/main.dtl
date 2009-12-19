@@ -1,5 +1,7 @@
 {% extends "general.dtl" %}
-
+{% block header %}
+<a href="/">Boragle</a>
+{% endblock %}
 {% block content %}
 {% include "intro.dtl" %}
 {% include "boragle_list.dtl" %}

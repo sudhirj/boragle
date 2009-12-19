@@ -23,6 +23,7 @@ class BoragleTest(base.ExtendedTestCase):
         avatar.put()
         self.assertEqual(avatar.name,self.creator.name)
         self.assertEqual(avatar.email,self.creator.email)
+        self.assertEqual(avatar.url,self.creator.url)
     
     def test_find_from_find_or_create(self):
         boragle = self.make_boragle()
@@ -47,6 +48,8 @@ class BoragleTest(base.ExtendedTestCase):
         self.assertTrue(avatar.is_saved())
         self.assertEqual(boragle,avatar.boragle)
         self.assertEqual(self.creator, avatar.creator)
+        
+    
         
         
         

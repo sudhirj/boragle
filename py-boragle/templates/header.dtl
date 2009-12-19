@@ -1,6 +1,7 @@
 <div class="block header">
 	<h1>
-		{% if boragle %}<a href="{{boragle.url}}">{{boragle.name}}</a>{% else %}<a href="/">Boragle</a>{% endif %}
+		{% if boragle %}<a href="{{boragle.url}}">{{boragle.name}}</a>
+		{% else %}{% endif %}
 
 	</h1>
 	<ul class="nav buttons">
@@ -12,7 +13,7 @@
 		</li>
 		{% if creator %}
 		<li>
-			<a class="user-box">{{creator.name}}</a>
+			{% include "user_box.dtl" %}
 		</li>
 		{% endif %}
 		<li>

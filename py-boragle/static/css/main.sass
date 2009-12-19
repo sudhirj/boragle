@@ -26,6 +26,8 @@ a
   border: 0.1em solid #{!line}
   border-left: none
   border-right: none
+  a
+    color= !link
 
 input[type=submit]
   background-color: #ccc
@@ -194,7 +196,9 @@ ul.buttons
     display: block
     .text
       margin-top: 0.2em
-
+      
+a.question
+  color= !base
 .answer 
   padding: 1em
   +rounded-corners(0.5em)

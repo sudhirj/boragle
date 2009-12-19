@@ -1,5 +1,5 @@
 from google.appengine.ext import db
-import utils
+import utils, settings
     
 class ExtendedModel(db.Model):
     created_at = db.DateTimeProperty(auto_now_add = True)
@@ -17,12 +17,20 @@ class Creator(ExtendedModel):
     user_id = db.StringProperty()
     rep = db.IntegerProperty(default = 1)
 
+    @property
+    def url(self):
+        return '/'+settings.urls['users']+'/'+self.user_id
+        
     def put(self):
         if not self.is_saved():
             self.name = self.user.nickname()
             self.email = self.user.email()
             self.user_id = self.user.user_id()
         return super(Creator, self).put()
+        
+    @classmethod    
+    def find_by_id(cls, user_id):
+        return cls._find_by('user_id', user_id)
 
 class HasSlugs:
     @staticmethod
@@ -77,6 +85,10 @@ class Avatar(ExtendedModel):
     @property
     def email(self):
         return self.creator.email
+    
+    @property
+    def url(self):
+        return self.creator.url
     
     @classmethod
     def find_or_create(cls, boragle = None, creator = None):
@@ -175,6 +187,6 @@ class Answer(CommentableModel, HasCreator):
     
     @property
     def voting_url(self):
-        return self.question.url + '/vote/' + str(self.key())
+        return self.question.url + '/'+settings.urls['vote']+'/' + str(self.key())
 
     

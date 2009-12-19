@@ -1,5 +1,7 @@
 {% extends "general.dtl" %}
-
+{% block header %}
+<a href="{{boragle.url}}">{{boragle.name}}</a>
+{% endblock %}
 {% block content %}
 <div class="block main-col">
 	<ul class="buttons">

@@ -1,0 +1,9 @@
+{% extends "general.dtl" %}
+{% block header %}
+	<a href="{{creator.url}}">{{creator.name}}</a>
+{% endblock %}
+{% block content %}
+<div class="block">
+	Placeholder for {{creator.name}}'s page.
+</div>
+{% endblock %}

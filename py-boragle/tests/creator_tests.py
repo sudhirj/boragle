@@ -34,6 +34,24 @@ class CreatorTest(base.ExtendedTestCase):
         self.assertEqual(1,Creator.all().count()-old_count)
         self.assertEqual('new@user.com',Creator.all().fetch(1)[0].name)
         
+    def test_creator_url(self):
+        user = users.User('s@g.com')    
+        creator = Creator(user = user)
+        creator.put()
+        creator.user_id = '4545'
+        self.assertEqual(creator.url,'/users/'+creator.user_id)
+        
+
+    def test_find_by_id(self):
+        user = users.User('s@g.com')    
+        creator = Creator(user = user)
+        creator.put()
+        creator.user_id = '4545'
+        creator.put()
+        creator_from_db = Creator.find_by_id('4545')
+        self.assertEqual(creator_from_db.name,creator.name)
+
+        
         
         
         

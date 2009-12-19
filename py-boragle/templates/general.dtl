@@ -1,8 +1,28 @@
 {% extends "base.dtl" %}
-
 {% block body %}
-
-{% include "header.dtl" %}
+<div class="block header">
+	<h1>
+		{% block header %}
+		<a href="/">Boragle</a>
+		{% endblock %}
+	</h1>
+	<ul class="nav buttons">
+		<li>
+			<a href="/">home</a>
+		</li>
+		<li>
+			<a href="/new">make a new boragle</a>
+		</li>
+		{% if creator %}
+		<li>
+			{% include "user_box.dtl" %}
+		</li>
+		{% endif %}
+		<li>
+			<a href="{{authdetails.link}}">{{authdetails.label}}</a>
+		</li>
+	</ul>
+</div>
 {% block content %}
 {% endblock %}
 {% include "footer.dtl" %}

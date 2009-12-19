@@ -1,0 +1,2 @@
+<a class="name user-box" href="{{creator.url}}">{{creator.name}}</a>
+
