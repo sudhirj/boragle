@@ -47,6 +47,11 @@ body {
   line-height: 1.2em;
   color: black; }
 
+iframe {
+  overflow: hidden; }
+  iframe body {
+    overflow: hidden; }
+
 a {
   text-decoration: none;
   color: black; }
@@ -86,6 +91,15 @@ input[type=submit] {
       vertical-align: top;
       font-style: italic;
       margin: 0.2em; }
+  .header .search-box {
+    position: absolute;
+    right: 0;
+    bottom: 1.5em; }
+
+a.user-box {
+  color: black; }
+  a.user-box:hover {
+    color: #3b5998; }
 
 ul.buttons {
   display: block;

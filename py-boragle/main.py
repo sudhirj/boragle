@@ -89,7 +89,7 @@ class AskQuestionHandler(ExtendedHandler):
         boragle = Boragle.find_by_slug(boragle_slug)
         avatar = self.get_avatar_for_boragle(boragle)
         self.render_template('ask-question', dict(boragle = boragle,
-                            authdetails = utils.authdetails(boragle.url+settings.urls['ask']),
+                            authdetails = utils.authdetails(boragle.url+'/'+settings.urls['ask']),
                             creator = avatar))
         
     @utils.authorize()
@@ -116,11 +116,19 @@ class VotingHandler(ExtendedHandler):
 
 class UserHandler(ExtendedHandler):
     def get(self, user_id):
-        creator = Creator.find_by_id(user_id)
-        self.render_template('user', dict(creator = creator, authdetails = utils.authdetails(creator.url)))
+        user = Creator.find_by_id(user_id)
+        self.render_template('user', dict(user = user, 
+                                            authdetails = utils.authdetails(user.url),
+                                            creator = self.creator))
+
+class SearchHandler(ExtendedHandler):
+    def get(self):
+        self.render_template('search', dict(authdetails = utils.authdetails('/search'),
+                                            creator = self.creator))
             
         
 ROUTES =    [
+            ('/search.*', SearchHandler),
             ('/'+settings.urls['users']+r'/(\d+)', UserHandler),
             (r'/([\w-]+)/'+settings.urls['ask'], AskQuestionHandler),
             ('/'+settings.urls['new'], NewBoragleHandler),

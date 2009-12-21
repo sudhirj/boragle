@@ -1,6 +1,17 @@
 {% extends "base.dtl" %}
 {% block body %}
 <div class="block header">
+
+	<form action="http://www.boragle.com/search" id="cse-search-box">
+	  <div class="search-box">
+	    <input type="hidden" name="cx" value="partner-pub-7898295704528692:im0u3s-br7s" />
+	    <input type="hidden" name="cof" value="FORID:9" />
+	    <input type="hidden" name="ie" value="ISO-8859-1" />
+	    <input type="text" name="q" size="40" />
+	    <input type="submit" name="sa" value="Search Boragle" />
+	  </div>
+	</form>
+	<script type="text/javascript" src="http://www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script>
 	<h1>
 		{% block header %}
 		<a href="/">Boragle</a>

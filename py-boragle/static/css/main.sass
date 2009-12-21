@@ -10,6 +10,11 @@ body
   min-width= !data_width
   line-height: 1.2em
   color= !base
+
+iframe
+  overflow: hidden
+  body
+    overflow: hidden
   
 a
   text-decoration: none
@@ -50,7 +55,16 @@ input[type=submit]
       vertical-align: top
       font-style: italic
       margin: 0.2em
-    
+  .search-box
+    position: absolute
+    right: 0
+    bottom: 1.5em
+
+
+a.user-box
+  color= !base
+  &:hover
+    color= !link
 
 
 ul.buttons
