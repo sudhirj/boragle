@@ -48,7 +48,8 @@ class QuestionHandler(ExtendedHandler):
         self.render_template('qna', dict(question=question,
                                         boragle = question.boragle,
                                         authdetails = utils.authdetails(question.url),
-                                        creator = avatar))
+                                        creator = avatar,
+                                        answers = question.get_answers_by_votes()))
     
     @utils.authorize()
     def post(self, boragle_slug, question_slug):

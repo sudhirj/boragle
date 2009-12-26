@@ -48,7 +48,6 @@ class HasSlugs:
 class HasCreator:
     pass
     
-
 class HasComments:
     pass
 
@@ -72,6 +71,11 @@ class Boragle(ExtendedModel, HasSlugs, HasCreator):
     def find_question_by_slug(self, slug):
         questions = self.questions.filter('slugs =', slug).fetch(1)
         return questions[0] if len(questions) else None
+    
+    def get_latest_questions(self, count = 20, start_time = None):
+        import datetime
+        if not start_time: start_time = datetime.datetime.now()
+        
 
 class Avatar(ExtendedModel):
     boragle = db.ReferenceProperty(Boragle,collection_name='avatars', required=True)
@@ -167,6 +171,9 @@ class Question(CommentableModel, HasSlugs, HasCreator):
     def get_answer(self, key):
         return self.answers.filter('__key__ = ', db.Key(key)).fetch(1)[0]
     
+    def get_answers_by_votes(self, count = 20, offset = 0):
+        return self.answers.order('-vote_count').fetch(count, offset)
+        
 class Answer(CommentableModel, HasCreator):
     question = db.ReferenceProperty(Question, collection_name='answers', required=True)
     text = db.TextProperty(required = True)

@@ -116,7 +116,21 @@ class BoragleTest(base.ExtendedTestCase):
         self.question.put()
         self.question.put()
         self.assertEqual(len(self.question.slugs),1)        
-        
+    
+    def test_get_answers_by_votes(self):
+        answer1 = Answer.create(question = self.question, text = 'zimply', creator = self.avatar)
+        answer2 = Answer.create(question = self.question, text = 'zimply', creator = self.avatar)        
+        answer3 = Answer.create(question = self.question, text = 'zimply', creator = self.avatar)
+        answer1.vote_count = 1
+        answer2.vote_count = 3
+        answer3.vote_count = 2
+        answer1.put()
+        answer2.put()
+        answer3.put()
+        answer_list = self.question.get_answers_by_votes(count= 20, offset= 0)
+        self.assertEqual(answer_list[0].key(),answer2.key())
+        self.assertEqual(answer_list[1].key(),answer3.key())
+        self.assertEqual(answer_list[2].key(),answer1.key())
         
         
         

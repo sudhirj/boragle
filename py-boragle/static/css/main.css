@@ -113,10 +113,10 @@ ul.buttons {
       padding: 0.25em 0.65em;
       background: #fff;
       color: black;
-      cursor: pointer;
       -webkit-border-radius: 0.4em;
       -moz-border-radius: 0.4em;
       border: 0.1em solid #ddd;
+      cursor: pointer;
       margin-left: 0.2em; }
       ul.buttons li a:hover {
         background: #efefef;
@@ -127,7 +127,8 @@ ul.buttons {
 
 .intro {
   float: left;
-  width: 43em; }
+  width: 43em;
+  margin-right: 2em; }
   .intro h3 {
     font-weight: bold;
     margin: 0.5em 0; }
@@ -140,7 +141,8 @@ ul.buttons {
   float: left;
   width: 11em;
   line-height: 1.2em;
-  text-align: center; }
+  text-align: center;
+  padding: 1em 2em; }
   .sidebar h5 {
     font-weight: bold;
     margin-bottom: 0.2em; }
@@ -195,10 +197,10 @@ ul.buttons {
     padding: 0.25em 0.65em;
     background: #fff;
     color: black;
-    cursor: pointer;
     -webkit-border-radius: 0.4em;
     -moz-border-radius: 0.4em;
     border: 0.1em solid #ddd;
+    cursor: pointer;
     padding: 0;
     width: 1.1em;
     height: 1.1em;
@@ -286,17 +288,26 @@ a.question {
   position: absolute;
   right: 1em;
   bottom: -0.6em;
-  font-size: 0.75em;
-  padding: 0.25em 0.65em;
-  background: #fff;
-  color: black;
-  cursor: pointer;
-  -webkit-border-radius: 0.4em;
-  -moz-border-radius: 0.4em;
-  border: 0.1em solid #ddd; }
-  .footnote:hover {
-    background: #efefef;
-    color: #3b5998; }
+  font-size: 0.75em; }
+  .footnote a {
+    font-weight: bold;
+    padding: 0.25em 0.65em;
+    background: #fff;
+    color: black;
+    -webkit-border-radius: 0.4em;
+    -moz-border-radius: 0.4em;
+    border: 0.1em solid #ddd;
+    cursor: pointer; }
+    .footnote a:hover {
+      background: #efefef;
+      color: #3b5998; }
+  .footnote span {
+    padding: 0.25em 0.65em;
+    background: #fff;
+    color: black;
+    -webkit-border-radius: 0.4em;
+    -moz-border-radius: 0.4em;
+    border: 0.1em solid #ddd; }
 
 .no-data {
   text-align: center;

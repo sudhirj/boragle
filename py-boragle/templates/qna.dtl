@@ -9,7 +9,7 @@
 		<li><a href="{{boragle.url}}/ask">ask a question</a></li>
 	</ul>
 	{% include "full_question.dtl" %}
-	{% for answer in question.answers %}
+	{% for answer in answers %}
 	{% include "answer.dtl" %}
 	{% endfor %}
 	{% include "answer_question.dtl" %}

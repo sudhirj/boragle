@@ -1,4 +1,5 @@
 <div class="footnote">
+	<span>{{item.created_at|date:"P d\<\s\u\p\>S\<\/\s\u\p\> M Y"|safe}}</span>
 	{% with item.creator as creator %}
 	{% include "user_box.dtl" %}
 	{% endwith %}

@@ -38,7 +38,8 @@ class BoragleTest(base.ExtendedTestCase):
         self.assertEqual(boragles[0].slug,"koi3")
         self.assertEqual(boragles[1].slug,"koi2")
         
-        
+
+                
         
         
     

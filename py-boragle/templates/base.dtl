@@ -7,6 +7,7 @@
 		{% endblock %}
 	</title>
 	<link rel="stylesheet" type="text/css" href="/static/css/main.css"/>
+	<meta name="google-site-verification" content="tupzO11pz8Til2i_NUv4MhF2nGNjwg2unLBgRs6ek8o" />
 </head>
 <body>
 	{% block body %}
@@ -24,5 +25,5 @@
 		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
 		})();
 		</script>
-</body>
-</html>
+	</body>
+	</html>

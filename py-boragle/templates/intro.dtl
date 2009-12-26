@@ -12,7 +12,7 @@
 		Boragle is more along the lines of <a href="http://www.stackoverflow.com" target="_blank">StackOverflow</a> - a question and answer model. But while SO is more focussed on programming, here you can start a Boragle on any topic under (or inside) the sun.
 	</p>
 	<h3>Can I use it for my organization / school / club / anything?</h3>
-	<p>Sure... just make a Boragle for yourself. If you want more control, Boragle runs on the App Engine, so you could easily deploy your own instance (especially if you're using Google Apps). Contact me for details.</p>
+	<p>Sure... just make a Boragle for yourself. If you want more control, Boragle runs on the App Engine, so you could easily deploy your own instance (especially if you're using Google Apps). I'm working to make this available, so watch this space for updates.</p>
 	<h3>Why does it look so unfinished and empty?</h3>
 	<p>It's called <a href="http://en.wikipedia.org/wiki/Minimalism" target="_blank">minimalist design</a> :) It's still under development, actually, but feel free to try it out. All feedback, questions and comments can be posted on the <a href="/meta">Meta Boragle</a>. The more feedback and comments you have, the better it will become.</p>
 </div>
