@@ -1,6 +1,6 @@
 <div class="holder">
 	<a class="question" href="/{{question.boragle.slug}}/{{question.slug}}">
-		<div class="votes"><span class="number">{{question.answer_count}}</span><span class="text">answers</span></div>
+		<div class="votes"><span class="number">{{question.answer_count}}</span><span class="text">answer{{question.answer_count|pluralize}}</span></div>
 		<div class="main">
 			<span class="text">{{question.text}}</span>
 			{% block question_details %}
