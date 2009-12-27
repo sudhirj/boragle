@@ -32,6 +32,11 @@ class ExtendedHandler(webapp.RequestHandler):
     
     def get_avatar_for_boragle(self, boragle):
         return Avatar.find_or_create(boragle = boragle, creator = self.creator) if self.creator else None
+        
+    @staticmethod    
+    def calc_last_page(number, page_size):
+        return int((number-1) // page_size) + 1
+            
 
 
 class MainHandler(ExtendedHandler):
@@ -44,12 +49,24 @@ class QuestionHandler(ExtendedHandler):
     def get(self, boragle_slug, question_slug):
         question = Question.find_by_slug(question_slug)
         assert question
+        page = int(self.read('page') or 1)
+        page_size = settings.answer_page_size
+        offset = (page - 1)*page_size
+        answers = question.get_answers_by_votes(count = page_size + 1, offset = offset)
+        prev_page = page - 1 if page > 1 else None
+        next_page = page + 1 if len(answers) > page_size else None
         avatar = self.get_avatar_for_boragle(question.boragle)
+        pagination = dict(prev = prev_page,
+                            next = next_page, 
+                            current = page, 
+                            last = self.calc_last_page(question.answer_count, settings.answer_page_size))
         self.render_template('qna', dict(question=question,
                                         boragle = question.boragle,
                                         authdetails = utils.authdetails(question.url),
                                         creator = avatar,
-                                        answers = question.get_answers_by_votes()))
+                                        answers = answers[:page_size],
+                                        pagination = pagination
+                                        ))
     
     @utils.authorize()
     def post(self, boragle_slug, question_slug):
@@ -57,7 +74,8 @@ class QuestionHandler(ExtendedHandler):
         avatar = self.get_avatar_for_boragle(question.boragle)
         assert avatar, question
         Answer.create(question = question, text = self.read('answer'), creator = avatar)
-        self.redirect(question.url)
+        page = self.calc_last_page(question.answer_count, settings.answer_page_size)
+        self.redirect(question.url+'?page='+str(page))
 
 class BoragleHandler(ExtendedHandler):
     def get(self, boragle_slug):

@@ -1,0 +1,13 @@
+{% if pagination.prev or pagination.next %}
+<div class="pagination">
+{% if pagination.prev %}
+<a href="?page={{pagination.prev}}" class="prev">&lt; previous</a>
+<a href="?page=1" class="prev">&lt;&lt; first</a>
+{% endif %}
+{% if pagination.next %}
+<a href="?page={{pagination.next}}" class="next">next &gt;</a>
+<a href="?page={{pagination.last}}" class="next">last &gt;&gt;</a>
+{% endif %}	
+page {{pagination.current}} of {{pagination.last}}
+</div>
+{% endif %}

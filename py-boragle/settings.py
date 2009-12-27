@@ -1,4 +1,5 @@
-debug = False
+debug = True
+answer_page_size = 10
 
 
 urls = dict(

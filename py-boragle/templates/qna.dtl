@@ -12,6 +12,8 @@
 	{% for answer in answers %}
 	{% include "answer.dtl" %}
 	{% endfor %}
+	{% include "pagination.dtl" %}
+	
 	{% include "answer_question.dtl" %}
 </div>
 {% endblock %}
