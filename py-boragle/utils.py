@@ -39,3 +39,22 @@ def slugify(text):
     slug = re.sub('[^\w\s-]', '', slug).strip().lower()
     slug = re.sub('\s+', '-', slug)
     return slug
+    
+class Paginator:
+    class _Paginator:
+        pass
+    
+    def __init__(self, current_page, page_size, item_count):
+        self._paginator = self._Paginator()
+        self._paginator.last = int((item_count-1) // page_size) + 1
+        self._paginator.next = current_page + 1 if current_page < self._paginator.last else None
+        self._paginator.prev = current_page - 1 if current_page > 1 else None
+        self._paginator.current = current_page
+
+        self._paginator.offset = (current_page - 1) * page_size
+
+    
+    @property
+    def paginator(self):
+        return self._paginator
+        

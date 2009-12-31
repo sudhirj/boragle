@@ -1,4 +1,4 @@
-debug = True
+debug = False
 answer_page_size = 10
 
 
