@@ -41,20 +41,15 @@ def slugify(text):
     return slug
     
 class Paginator:
-    class _Paginator:
-        pass
+    def __init__(self, current_page, page_size, item_count, getter = None):
+        self.last = int((item_count-1) // page_size) + 1
+        self.next = current_page + 1 if current_page < self.last else None
+        self.prev = current_page - 1 if current_page > 1 else None
+        self.current = current_page
+        self.offset = (current_page - 1) * page_size
+        self.first = 1
+        self.page_size = page_size
+        if getter:
+            self.items = getter(count = self.page_size, offset = self.offset)[:self.page_size]
     
-    def __init__(self, current_page, page_size, item_count):
-        self._paginator = self._Paginator()
-        self._paginator.last = int((item_count-1) // page_size) + 1
-        self._paginator.next = current_page + 1 if current_page < self._paginator.last else None
-        self._paginator.prev = current_page - 1 if current_page > 1 else None
-        self._paginator.current = current_page
-
-        self._paginator.offset = (current_page - 1) * page_size
-
-    
-    @property
-    def paginator(self):
-        return self._paginator
         

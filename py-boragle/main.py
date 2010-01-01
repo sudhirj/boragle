@@ -49,23 +49,17 @@ class QuestionHandler(ExtendedHandler):
     def get(self, boragle_slug, question_slug):
         question = Question.find_by_slug(question_slug)
         assert question
-        page = int(self.read('page') or 1)
-        page_size = settings.answer_page_size
-        offset = (page - 1)*page_size
-        answers = question.get_answers_by_votes(count = page_size + 1, offset = offset)
-        prev_page = page - 1 if page > 1 else None
-        next_page = page + 1 if len(answers) > page_size else None
+        paginator = utils.Paginator(current_page = int(self.read('page') or 1),
+                                        page_size = settings.answer_page_size,
+                                        item_count = question.answer_count,
+                                        getter = question.get_answers_by_votes)
         avatar = self.get_avatar_for_boragle(question.boragle)
-        pagination = dict(prev = prev_page,
-                            next = next_page, 
-                            current = page, 
-                            last = self.calc_last_page(question.answer_count, settings.answer_page_size))
         self.render_template('qna', dict(question=question,
                                         boragle = question.boragle,
                                         authdetails = utils.authdetails(question.url),
                                         creator = avatar,
-                                        answers = answers[:page_size],
-                                        pagination = pagination
+                                        answers = paginator.items,
+                                        paginator = paginator
                                         ))
     
     @utils.authorize()
