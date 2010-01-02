@@ -1,12 +1,11 @@
 
-import base
+import base, mox
 from models import Boragle, Creator
 from google.appengine.ext import db
 from google.appengine.api import users
 
 class BoragleTest(base.ExtendedTestCase):
     def make_boragle(self):
-        
         return Boragle(name = "Koi", 
                 desc= "Boragle about koi fish", 
                 slugs = ["koi","koi-fish"],
@@ -37,8 +36,42 @@ class BoragleTest(base.ExtendedTestCase):
         self.assertEqual(2,len(boragles))
         self.assertEqual(boragles[0].slug,"koi3")
         self.assertEqual(boragles[1].slug,"koi2")
+    
+    def test_get_latest_questions(self):
+        start = 'abc'
+        boragle = self.make_boragle()
+        boragle.put()
+        questions = ['q1', 'q2']
+        query = self.mox.CreateMock(db.Query)
+        self.mox.StubOutWithMock(boragle, 'all_questions')
+        boragle.all_questions().AndReturn(query)
+        query.filter('sort_date <= ', start).AndReturn(query)
+        query.order('-sort_date').AndReturn(query)
+        query.fetch(limit = 42).AndReturn(questions)
         
+        self.mox.ReplayAll()
+        self.assertEqual(questions,boragle.get_latest_questions(start = start, count = 42))
+        self.mox.VerifyAll()
 
+    def test_get_latest_questions_does_not_apply_filter_on_first_call(self):
+        boragle = self.make_boragle()
+        boragle.put()
+        questions = ['q1', 'q2']
+        query = self.mox.CreateMock(db.Query)
+        self.mox.StubOutWithMock(boragle, 'all_questions')
+        boragle.all_questions().AndReturn(query)
+        query.order('-sort_date').AndReturn(query)
+        query.fetch(limit = 42).AndReturn(questions)
+        self.mox.ReplayAll()
+        self.assertEqual(questions,boragle.get_latest_questions(start = None, count = 42))
+        self.mox.VerifyAll()
+
+
+    def test_all_question(self):
+        boragle = self.make_boragle()
+        boragle.put()
+        self.assertEqual(repr(boragle.questions),repr(boragle.all_questions()))
+        
                 
         
         

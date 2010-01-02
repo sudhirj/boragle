@@ -5,14 +5,10 @@ from resources.webtest import TestApp
 from resources.stubout import StubOutForTesting
 from resources.mox import Mox
 import main, os
-from models import Question, Answer, Boragle, Creator, Avatar, Comment
+from models import Question, Answer, Boragle, Creator, Avatar, Comment, Vote
 
 
 class ExtendedTestCase(unittest.TestCase): 
-    app = TestApp(main.create_app())
-    _login_stubs = StubOutForTesting()
-    stubs = StubOutForTesting()
-    
     
     def random(self):
         import hashlib, time
@@ -24,15 +20,18 @@ class ExtendedTestCase(unittest.TestCase):
         self.mox = Mox()
         self.login()
         self.creator = self.make_creator()
+        self.app = TestApp(main.create_app())
+        self.stubs = StubOutForTesting()
         
     def clear_data(self):
-        for model in [Question, Answer, Boragle, Creator, Avatar, Comment]:
+        for model in [Question, Answer, Boragle, Creator, Avatar, Comment, Vote]:
             for datum in model.all():
                 datum.delete()
         
       
     def tearDown(self):
         self.logout()
+        self.mox.UnsetStubs()
         self.stubs.UnsetAll()
         self.clear_data()
 

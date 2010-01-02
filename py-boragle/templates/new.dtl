@@ -19,7 +19,7 @@
 </div>
 {% else %}
 <div class="block no-data">
-	You need to <a href="{{authdetails.link}}">sign in</a> first. 
+	Please <a href="{{authdetails.link}}">sign in</a> before creating a Boragle.  
 </div>
 {% endif %}
 {% endblock %}

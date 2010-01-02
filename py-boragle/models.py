@@ -4,11 +4,16 @@ import utils, settings
 class ExtendedModel(db.Model):
     created_at = db.DateTimeProperty(auto_now_add = True)
     updated_at = db.DateTimeProperty(auto_now = True)
+    db_version = db.IntegerProperty(default = 1)
     
     @classmethod
     def _find_by(cls, key, value):
         matches = cls.all().filter(key+' =', value).fetch(1)
         return matches[0] if len(matches) else None
+    
+    def put(self):
+        self.db_version = settings.db_version
+        return super(ExtendedModel, self).put()
 
 class Creator(ExtendedModel):
     name = db.StringProperty()
@@ -72,9 +77,14 @@ class Boragle(ExtendedModel, HasSlugs, HasCreator):
         questions = self.questions.filter('slugs =', slug).fetch(1)
         return questions[0] if len(questions) else None
     
-    def get_latest_questions(self, count = 20, start_time = None):
-        import datetime
-        if not start_time: start_time = datetime.datetime.now()
+    def get_latest_questions(self, count, start):
+        query = self.all_questions()
+        if start: query.filter('sort_date <= ',start)
+        return query.order('-sort_date').fetch(limit = count)
+
+    def all_questions(self):
+        """ For was done mostly for testability, but use for global restrictions"""
+        return self.questions
         
 
 class Avatar(ExtendedModel):
@@ -158,10 +168,12 @@ class Question(CommentableModel, HasSlugs, HasCreator):
     slugs = db.StringListProperty()
     answer_count = db.IntegerProperty(default = 0)
     creator = db.ReferenceProperty(Avatar,collection_name='questions', required = True)
+    sort_date = db.StringProperty()
     
     def put(self):
         slug = utils.slugify(self.text)
         if not slug in self.slugs: self.slugs.append(slug)
+        self.sort_date = self.created_at.strftime('%Y%m%d%H%M%S') + '|' + self.slug
         return super(Question, self).put()
     
     @property

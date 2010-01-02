@@ -19,6 +19,9 @@ class BoragleTest(base.ExtendedTestCase):
     
     def test_question_slugger(self):
         self.assertTrue('why-on-earth' in self.question.slugs)
+    
+    def test_question_sorters(self):
+        self.assertEqual(self.question.sort_date,self.question.created_at.strftime('%Y%m%d%H%M%S')+'|'+self.question.slug)
         
     def test_url(self):
         self.assertEqual(self.boragle.url+'/'+self.question.slug,self.question.url)
@@ -132,6 +135,8 @@ class BoragleTest(base.ExtendedTestCase):
         self.assertEqual(answer_list[1].key(),answer3.key())
         self.assertEqual(answer_list[2].key(),answer1.key())
         
+
+            
         
         
         

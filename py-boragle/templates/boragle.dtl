@@ -1,6 +1,6 @@
 {% extends "general.dtl" %}
 {% block header %}
-	<a href="{{boragle.url}}">{{boragle.name}}</a>
+<a href="{{boragle.url}}">{{boragle.name}}</a>
 {% endblock %}
 {% block content %}
 {% if boragle %}
@@ -9,7 +9,7 @@
 		<li><a href="{{boragle.url}}/ask">ask a question</a></li>
 	</ul>
 	<div class="questions">
-		{% for question in boragle.questions %}
+		{% for question in questions %}
 		{% include "question.dtl" %}
 		{% empty %}
 		<div class="no-data">
@@ -18,6 +18,9 @@
 		</div>
 		{% endfor %}
 	</div>
+	{% if next %}
+		<a href="?start={{next}}">next ></a>
+	{% endif %}
 </div>
 {% else %}
 <div class="block no-data">

@@ -60,6 +60,9 @@ a {
   a:visited {
     text-decoration: none; }
 
+.content-holder {
+  min-height: 26em; }
+
 .block {
   padding: 1em 0;
   margin-bottom: 1em;
@@ -171,7 +174,7 @@ ul.buttons {
     margin: 0.5em auto; }
 
 .form {
-  padding: 1em 2em; }
+  padding: 0em 2em; }
   .form .field {
     margin: 1em 0; }
   .form label {

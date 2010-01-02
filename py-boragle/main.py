@@ -6,7 +6,8 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
 from google.appengine.api import users
 from models import Boragle, Question, Answer, Creator, Avatar
-import utils, logging
+import utils, logging, time
+from datetime import datetime
 
 class ExtendedHandler(webapp.RequestHandler):
     def render_template(self, template_file, data = None):
@@ -75,9 +76,14 @@ class BoragleHandler(ExtendedHandler):
     def get(self, boragle_slug):
         boragle = Boragle.find_by_slug(boragle_slug)
         avatar = Avatar.find_or_create(boragle=boragle, creator=self.creator) if self.creator else None
+        start = self.read('start') or None
+        questions = boragle.get_latest_questions(count = settings.question_page_size + 1, start = start)
+        next = questions.pop().sort_date if len(questions) == settings.question_page_size + 1 else None
         self.render_template('boragle', dict(boragle=boragle,
+                                                questions = questions,
                                                 authdetails = utils.authdetails(),
-                                                creator = avatar))
+                                                creator = avatar,
+                                                next = next))
 
 class NewBoragleHandler(ExtendedHandler):
     def get(self):

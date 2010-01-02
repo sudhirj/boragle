@@ -15,3 +15,15 @@ indexes:
   - name: question
   - name: vote_count
     direction: desc
+
+- kind: Question
+  properties:
+  - name: boragle
+  - name: created_at
+    direction: desc
+
+- kind: Question
+  properties:
+  - name: boragle
+  - name: sort_date
+    direction: desc
