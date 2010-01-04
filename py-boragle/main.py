@@ -9,6 +9,10 @@ from models import Boragle, Question, Answer, Creator, Avatar
 import utils, logging, time
 from datetime import datetime
 
+class PostingError(Exception):
+    def __init__(self, message):
+        self.message = message
+
 class ExtendedHandler(webapp.RequestHandler):
     def render_template(self, template_file, data = None):
         path = os.path.join(os.path.dirname(__file__), 'templates/'+template_file+'.dtl')
@@ -21,13 +25,21 @@ class ExtendedHandler(webapp.RequestHandler):
         self.creator = None
         current_user = users.get_current_user()
         if current_user:
-            self.creator = Creator.get_or_insert(current_user.user_id(), user = current_user)
+            self.creator = Creator.get_by_key_name(current_user.user_id()) or Creator.get_or_insert(current_user.user_id(), user = current_user)
         return super(ExtendedHandler, self).initialize(request, response)
         
     def handle_exception(self, exception, debug):
+        base_params = dict(authdetails = utils.authdetails(),
+                                            creator = self.creator)
         if not debug:
-            self.response.out.write(exception)
-            self.response.set_status(403)
+            try:
+                raise exception
+            except PostingError, e: 
+                base_params.update(dict(message = e.message))
+            except Exception: 
+                pass
+            finally:    
+                self.render_template('error', base_params)
         else:
             super(ExtendedHandler, self).handle_exception(exception, debug)
     
@@ -38,8 +50,6 @@ class ExtendedHandler(webapp.RequestHandler):
     def calc_last_page(number, page_size):
         return int((number-1) // page_size) + 1
             
-
-
 class MainHandler(ExtendedHandler):
     def get(self):
         self.render_template('main', dict(boragles = Boragle.get_latest(count = 5),
@@ -68,7 +78,9 @@ class QuestionHandler(ExtendedHandler):
         question = Question.find_by_slug(question_slug)
         avatar = self.get_avatar_for_boragle(question.boragle)
         assert avatar, question
-        Answer.create(question = question, text = self.read('answer'), creator = avatar)
+        answer = self.read('answer')
+        if not(answer and answer.strip()): raise PostingError('Please provide an answer')
+        Answer.create(question = question, text = answer, creator = avatar)
         page = self.calc_last_page(question.answer_count, settings.answer_page_size)
         self.redirect(question.url+'?page='+str(page))
 
@@ -81,7 +93,7 @@ class BoragleHandler(ExtendedHandler):
         next = questions.pop().sort_date if len(questions) == settings.question_page_size + 1 else None
         self.render_template('boragle', dict(boragle=boragle,
                                                 questions = questions,
-                                                authdetails = utils.authdetails(),
+                                                authdetails = utils.authdetails(boragle.url),
                                                 creator = avatar,
                                                 next = next))
 
@@ -93,9 +105,11 @@ class NewBoragleHandler(ExtendedHandler):
     @utils.authorize()
     def post(self):
         assert self.creator
+        name = self.read('name')
+        if not (name and name.strip()): raise PostingError("Please enter a name for your Boragle") 
         slug = utils.slugify(self.read('url'))
-        if slug == '': slug = utils.slugify(self.read('name'))
-        if Boragle.find_by_slug(slug): raise Exception('This url is already in use.')
+        if slug == '': slug = utils.slugify(name)
+        if Boragle.find_by_slug(slug): raise PostingError('This url is already in use.')
         new_boragle = Boragle(name = self.read('name'),
                 slugs = [slug],
                 desc = self.read('desc'),
@@ -115,8 +129,10 @@ class AskQuestionHandler(ExtendedHandler):
     def post(self, boragle_slug):
         boragle = Boragle.find_by_slug(boragle_slug)
         avatar = self.get_avatar_for_boragle(boragle)
+        text = self.read('text')
+        if not text or not text.strip(): raise PostingError('Please enter a question.')
         assert avatar
-        new_question = Question(text = self.read('text'),
+        new_question = Question(text = text,
                 details = self.read('details'),
                 boragle = boragle,
                 creator = avatar)
@@ -161,7 +177,9 @@ def create_app():
     return webapp.WSGIApplication(ROUTES, settings.debug)
 
 def main():
-    wsgiref.handlers.CGIHandler().run(create_app())
+    from google.appengine.ext.webapp import util
+    # wsgiref.handlers.CGIHandler().run(create_app())
+    util.run_wsgi_app(create_app())
 
 if __name__ == '__main__':
     main()

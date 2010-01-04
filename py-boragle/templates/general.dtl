@@ -37,8 +37,10 @@
 		</li>
 	</ul>
 </div>
+<div class="content-holder">
 {% block content %}
 {% endblock %}
+</div>
 {% include "footer.dtl" %}
 
 {% endblock %}

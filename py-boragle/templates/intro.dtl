@@ -12,7 +12,9 @@
 		Boragle is built more along the lines of <a href="http://stackoverflow.com/about" target="_blank">StackOverflow</a> - a question and answer model. But while SO is focussed on programming, here you can start a Boragle on any topic under (or inside) the sun.
 	</p>
 	<h3>Can I use it for my organization / school / club / support group / anything?</h3>
-	<p>Sure! <a href="/new">Create a Boragle</a> for whatever you want. Except that <a target="_blank" href="http://code.google.com/appengine/program_policies.html">illegal stuff and spam</a> will get you blocked and reported immediately.</p>
+	<p>Sure! <a href="/new">Create a Boragle</a> for whatever you want. Except for <a target="_blank" href="http://code.google.com/appengine/program_policies.html">illegal stuff and spam</a>, which will get you blacklisted (or worse).</p>
 	<h3>Why does it look so unfinished and empty?</h3>
-	<p>It's called <a href="http://en.wikipedia.org/wiki/Minimalism" target="_blank">minimalist design</a> :) It's still under development, actually, but feel free to try it out. All feedback, questions and comments can be posted on the <a href="/meta">Meta Boragle</a>. The more feedback and comments you have, the better it will become.</p>
+	<p>It's called <a href="http://en.wikipedia.org/wiki/Minimalism" target="_blank">minimalist design</a> :) It is and always will be under development, so your feedback and comments will shape this site. Post everything on the <a href="/meta">Meta Boragle</a>.</p>
+	<h3>Is it free?</h3>
+	<p>Yes.</p>
 </div>

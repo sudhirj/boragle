@@ -19,11 +19,5 @@ indexes:
 - kind: Question
   properties:
   - name: boragle
-  - name: created_at
-    direction: desc
-
-- kind: Question
-  properties:
-  - name: boragle
   - name: sort_date
     direction: desc

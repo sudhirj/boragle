@@ -1,0 +1,11 @@
+{% extends "general.dtl" %}
+{% block content %}
+<div class="block error">
+	{% if message %}
+	{{message}}
+	{% else %}
+	:-(<br/><br/> 
+	Something bad just happened. This was all our fault, and we'll fix things as soon as possible. 
+	{% endif %}
+</div>
+{% endblock %}
