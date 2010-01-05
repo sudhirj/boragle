@@ -22,7 +22,8 @@ class BoragleTests(base.ExtendedTestCase):
         count = Boragle.all().count()
         self.app.post('/new', dict(name="test1", url = ".t1 tes#t", desc = 'desc'))
         self.assertEqual(count+1,Boragle.all().count())
-        self.app.post('/new', dict(name="duplicate1", url = ".t1 tes#t", desc = 'duplicate desc'), status = 403)
+        response = self.app.post('/new', dict(name="duplicate1", url = ".t1 tes#t", desc = 'duplicate desc'), status = 200)
+        response.mustcontain("This url is already in use")
         self.assertEqual(count+1,Boragle.all().count())
     
     def test_smoke_boragle(self):
