@@ -4,7 +4,7 @@
 {% endblock %}
 {% block content %}
 {% if authdetails.authenticated %}
-<div class="block form">
+<div class="block form ask-question">
 	<form action="" method="post" accept-charset="utf-8">
 		<div class="field">
 			<label for="question">Question:</label><input type="text" name="text" value=""/>

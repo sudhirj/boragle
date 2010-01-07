@@ -63,6 +63,8 @@ input[type=submit]
       vertical-align: top
       font-style: italic
       margin: 0.2em
+  .desc
+    font-size: 0.5em
   .search-box
     position: absolute
     right: 0
@@ -140,13 +142,13 @@ ul.buttons
   .field 
     margin: 1em 0
   label
-    width: 7em
+    width: 13em
     display: inline-block
     float: left
     margin: 0.8em 1em 1em 0
     
   input, textarea
-    width: 30em
+    width: 20em
     max-width: 35em
     font-size: 1.2em
     padding: 0.5em
@@ -160,12 +162,18 @@ ul.buttons
     max-height: 8em
     line-height: 1.4em
     +rounded-corners(1em)
+
+  &.ask-question
+    label
+      width: 10em
+    input, textarea
+      width: 30em
     
   input[type=submit]
     width: auto
     padding: 0.5em #{0.5em*!ratio}
     cursor: pointer
-
+    
 .question-list
   width= !data_width
   position: relative

@@ -98,6 +98,8 @@ input[type=submit] {
       vertical-align: top;
       font-style: italic;
       margin: 0.2em; }
+  .header .desc {
+    font-size: 0.5em; }
   .header .search-box {
     position: absolute;
     right: 0;
@@ -182,12 +184,12 @@ ul.buttons {
   .form .field {
     margin: 1em 0; }
   .form label {
-    width: 7em;
+    width: 13em;
     display: inline-block;
     float: left;
     margin: 0.8em 1em 1em 0; }
   .form input, .form textarea {
-    width: 30em;
+    width: 20em;
     max-width: 35em;
     font-size: 1.2em;
     padding: 0.5em;
@@ -202,6 +204,10 @@ ul.buttons {
     line-height: 1.4em;
     -webkit-border-radius: 1em;
     -moz-border-radius: 1em; }
+  .form.ask-question label {
+    width: 10em; }
+  .form.ask-question input, .form.ask-question textarea {
+    width: 30em; }
   .form input[type=submit] {
     width: auto;
     padding: 0.5em 0.84em;

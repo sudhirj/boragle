@@ -1,6 +1,7 @@
 {% extends "general.dtl" %}
 {% block header %}
 <a href="{{boragle.url}}">{{boragle.name}}</a>
+
 {% endblock %}
 {% block content %}
 {% if boragle %}

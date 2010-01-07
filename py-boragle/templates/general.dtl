@@ -25,7 +25,7 @@
 			<a href="/new">make a new boragle</a>
 		</li>
 		<li>
-			<a href="/meta">feedback</a>
+			<a href="/feedback">feedback</a>
 		</li>
 		{% if creator %}
 		<li>

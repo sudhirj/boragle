@@ -1,13 +1,16 @@
 {% extends "general.dtl" %}
+{% block header %}
+	<a href="/new">New Boragle</a>
+{% endblock %}
 {% block content %}
 {% if authdetails.authenticated %}
 <div class="block form">
 	<form action="" method="post" accept-charset="utf-8">
 		<div class="field">
-			<label for="question">Name:</label><input type="text" name="name" value=""/>
+			<label for="question">Boragle Name:</label><input type="text" name="name" value=""/>
 		</div>
 		<div class="field">
-			<label for="question">URL:</label><input type="text" name="url" value=""/>
+			<label for="question">Host at www.boragle.com/</label><input type="text" name="url" value=""/>
 		</div>
 		<div class="field">
 			<label for="desc">Description:</label><textarea name="desc"></textarea>
