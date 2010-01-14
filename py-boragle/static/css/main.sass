@@ -24,6 +24,8 @@ a
   &:visited
     text-decoration: none
 
+strong
+  font-weight: bold
 .content-holder 
   min-height: 26em
   
@@ -139,16 +141,22 @@ ul.buttons
     
 .form
   padding: 0em 2em
+  .prefix
+    padding-right: 0.2em
+  .url
+    width: 9em
   .field 
     margin: 1em 0
   label
     width: 13em
     display: inline-block
+    font-weight: bold
     float: left
-    margin: 0.8em 1em 1em 0
+    vertical-align: middle
+    margin: 0.9em 1em 1em 0
     
   input, textarea
-    width: 20em
+    width: 17em
     max-width: 35em
     font-size: 1.2em
     padding: 0.5em
@@ -158,6 +166,7 @@ ul.buttons
     
   textarea
     font-size: 1em
+    width: 20em
     height: 8em
     max-height: 8em
     line-height: 1.4em

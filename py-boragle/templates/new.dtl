@@ -7,10 +7,10 @@
 <div class="block form">
 	<form action="" method="post" accept-charset="utf-8">
 		<div class="field">
-			<label for="question">Boragle Name:</label><input type="text" name="name" value=""/>
+			<label for="question">Boragle Name / Topic:</label><input type="text" name="name" value=""/>
 		</div>
 		<div class="field">
-			<label for="question">Host at www.boragle.com/</label><input type="text" name="url" value=""/>
+			<label for="question">Host at:</label><span class="prefix">www.boragle.com/</span><input type="text" name="url" class="url" value=""/>
 		</div>
 		<div class="field">
 			<label for="desc">Description:</label><textarea name="desc"></textarea>

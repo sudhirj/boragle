@@ -3,6 +3,6 @@
 <a href="/">Boragle</a>
 {% endblock %}
 {% block content %}
-{% include "intro.dtl" %}
+{% include "intro2.dtl" %}
 {% include "boragle_list.dtl" %}
 {% endblock %}
